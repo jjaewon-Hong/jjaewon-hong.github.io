@@ -262,9 +262,9 @@ svg { display: block; }
   width: 52px;
   height: 52px;
   border-radius: $radius-lg;
-  border: 1px solid c(border);
-  background: c(surface);
-  color: c(text);
+  border: 1px solid c(text);
+  background: c(text);
+  color: c(bg);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -275,7 +275,8 @@ svg { display: block; }
   &:hover {
     transform: translateY(-2px);
     border-color: c(accent);
-    color: c(accent);
+    background: c(accent);
+    color: c(bg);
   }
 }
 
@@ -287,7 +288,34 @@ svg { display: block; }
 
   @include tablet { order: 1; }
 
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.5s ease;
+
+  // Two rings that spread out like ripples on hover
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 50%;
+    border: 2px solid c(accent);
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:hover {
+    animation: ring-wobble 3.2s ease-in-out infinite;
+
+    &::before { animation: ripple 2.4s ease-out infinite; }
+    &::after  { animation: ripple 2.4s ease-out 1.2s infinite; }
+
+    img, .photo-placeholder { transform: scale(1.04); }
+  }
+
   img, .photo-placeholder {
+    transition: transform 0.5s ease;
     display: block;
     width: 340px;
     height: 340px;
@@ -307,6 +335,26 @@ svg { display: block; }
     font-size: 96px;
     font-weight: 700;
   }
+}
+
+@keyframes ripple {
+  0%   { transform: scale(1);    opacity: 0.45; }
+  100% { transform: scale(1.22); opacity: 0; }
+}
+
+// Soft wave on the light blue ring
+@keyframes ring-wobble {
+  0%, 100% { border-radius: 50%; }
+  25% { border-radius: 52% 48% 50% 50% / 49% 52% 48% 51%; }
+  50% { border-radius: 48% 52% 49% 51% / 52% 48% 51% 49%; }
+  75% { border-radius: 51% 49% 52% 48% / 48% 51% 49% 52%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-photo,
+  .hero-photo:hover,
+  .hero-photo:hover::before,
+  .hero-photo:hover::after { animation: none; }
 }
 
 // ---------- Section titles ----------
@@ -352,6 +400,14 @@ section { margin-bottom: 64px; }
     border-color: c(accent);
     color: c(bg);
   }
+}
+
+.timeline .sep {
+  color: c(muted);
+  opacity: 0.55;
+  font-size: 0.75em;
+  margin: 0 4px;
+  vertical-align: 1px;
 }
 
 .timeline {
