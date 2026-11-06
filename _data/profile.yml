@@ -12,7 +12,7 @@ affiliation:
 # 링크: icon 은 email / github / cv 중 하나
 links:
   - label: 이메일
-    url: mailto:hongjaewon0428@gmail.com
+    url: "https://mail.google.com/mail/?view=cm&fs=1&to=hongjaewon0428@gmail.com"
     icon: email
   - label: GitHub
     url: https://github.com/jjaewon-Hong
