@@ -145,7 +145,7 @@
   title: Smart Sip
   intro: 센서와 AI로 음주 상태를 알려 주는 디지털 음주 가이드 컵
   period: '2025.07'
-  cover: /assets/img/smartsip_cup.jpg
+  cover: /assets/img/smartsip_features.jpg
   cover_fit: contain
   badge: 🏆 금상
   projects:
@@ -153,12 +153,12 @@
     meta: '*2025 AI와 함께하는 스마트 라이프 캠프* · 2025.07'
     award: 🏆 금상 · 영남대학교 공학교육혁신센터 (2025.07.03)
     role: 팀장 · 최종 발표자
-    image: /assets/img/smartsip_cup.jpg
-    image_alt: Smart Sip 구성도 (컵 · 스마트 칩 · 무선 충전 패드)
+    image: /assets/img/smartsip_features.jpg
+    image_alt: Smart Sip 구성도와 주요 기능 (센서 감지 · 3단계 LED · 무선 충전 · 친환경 방수 소재)
     gallery:
     - src: /assets/img/smartsip_group.jpg
       alt: 캠프 단체 사진
-    caption: Smart Sip 구성도 · 캠프 단체 사진
+    caption: Smart Sip 구성도와 주요 기능 · 캠프 단체 사진
     tags:
     - 아이디어톤
     - 알코올·무게·IMU 센서
