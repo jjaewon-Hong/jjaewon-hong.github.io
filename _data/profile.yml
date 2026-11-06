@@ -22,14 +22,3 @@ links:
     text: github.com/jjaewon-Hong
     url: https://github.com/jjaewon-Hong
     icon: github
-
-# 기술 스택
-skills:
-  - category: 언어
-    items: Python, C++, C
-  - category: AI / 비전
-    items: PyTorch, ONNX / ONNX Runtime, OpenCV
-  - category: 시스템
-    items: Linux, Docker / Docker Compose, CMake, WebAssembly
-  - category: LLM / 에이전트
-    items: Ollama (Llama 3), Flask REST API

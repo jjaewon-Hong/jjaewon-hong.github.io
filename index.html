@@ -77,9 +77,9 @@
     {% endfor %}
   </section>
 
-  <!-- ───────── 프로젝트 상세 (상자를 누르면 상세 창이 열림) ───────── -->
+  <!-- ───────── Project (상자를 누르면 상세 창이 열림) ───────── -->
   <section id="projects">
-    <h2 class="section-title">프로젝트 상세</h2>
+    <h2 class="section-title">Project</h2>
     <div class="box-grid">
       {% for box in site.data.projects %}
       <button type="button" class="project-box" data-open="dlg-{{ box.id }}" aria-haspopup="dialog">
@@ -159,14 +159,6 @@
       </div>
     </dialog>
     {% endfor %}
-  </section>
-
-  <!-- ───────── 기술 스택 ───────── -->
-  <section id="skills">
-    <h2 class="section-title">기술 스택</h2>
-    <dl class="skills">
-      {% for s in p.skills %}<dt>{{ s.category }}</dt><dd>{{ s.items }}</dd>{% endfor %}
-    </dl>
   </section>
 
   <!-- ───────── Contact ───────── -->

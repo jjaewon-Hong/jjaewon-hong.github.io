@@ -748,23 +748,6 @@ body:has(.project-dialog[open]) { overflow: hidden; }
   p { margin: 0; }
 }
 
-// ---------- Skills ----------
-.skills {
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 8px 16px;
-  margin: 0;
-
-  dt { font-weight: 600; }
-  dd { margin: 0; color: c(muted); }
-
-  @include phone {
-    grid-template-columns: 1fr;
-    gap: 2px;
-    dd { margin-bottom: 8px; }
-  }
-}
-
 // ---------- Contact ----------
 .contact-list {
   list-style: none;
