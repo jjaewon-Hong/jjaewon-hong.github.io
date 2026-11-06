@@ -1,5 +1,5 @@
 # 프로젝트 상자 목록 (위에서부터 표시)
-# - 상자: id, title, intro(한 줄 소개), period, cover(상자 사진), cover_fit(선택: contain = 사진 전체 보이기), badge(선택), flow(선택)
+# - 상자: id, title, intro(한 줄 소개), period, cover(상자 사진), cover_fit(선택: contain = 사진 전체 보이기), badge(선택), org(선택: 연두색 기관 표시), flow(선택)
 # - projects: 상자를 누르면 열리는 상세 카드들
 #   short / roadmap / period 가 있으면 상세 창 위쪽에 진행 흐름 카드로 표시됩니다.
 #   award, role, gallery, lesson(실패 요인)은 선택 항목입니다.
@@ -11,6 +11,7 @@
   intro: 오발사 방지형 표적 판별 모델을 C++ 전술 엔진과 LLM 공방 에이전트까지 단계적으로 확장한 연속 프로젝트
   period: 2026.03 – 2026.07
   cover: /assets/img/rg_agent_dashboard.jpg
+  org: LIG D&A
   projects:
   - title: 'Reasoning Guard: 오발사 방지형 미확인 공중 표적 판별 엔진'
     short: Reasoning Guard
@@ -62,7 +63,7 @@
     short: RG-Agent
     roadmap: LLM 공격/방어 에이전트<br>Docker 기반 공방 시뮬레이션
     period: '2026.07'
-    meta: '*DAH-2026* · 2026.07'
+    meta: '*LIG D&A 주최 DAH-2026* · 2026.07'
     image: /assets/img/rg_agent_dashboard.jpg
     image_alt: RG-Agent 실시간 공방 대시보드
     links:

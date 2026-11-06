@@ -530,7 +530,8 @@ section { margin-bottom: 64px; }
 .box-period { font-size: 13px; font-weight: 600; color: c(muted); margin-right: 4px; }
 
 .box-badge,
-.box-count {
+.box-count,
+.box-org {
   font-size: 12px;
   font-weight: 600;
   padding: 1px 8px;
@@ -538,6 +539,12 @@ section { margin-bottom: 64px; }
 }
 .box-badge { background: #fdf3d7; color: #8a5a00; }
 .box-count { background: c(accent-soft); color: c(accent); }
+.box-org { background: #e3f4e1; color: #2f7a2a; }
+
+:root[data-theme="dark"] .box-org { background: #1c3320; color: #8fd68a; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .box-org { background: #1c3320; color: #8fd68a; }
+}
 
 .box-title { font-size: 19px; font-weight: 700; line-height: 1.4; }
 .box-flow { font-size: 13px; font-weight: 600; color: c(accent); }
