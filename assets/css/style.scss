@@ -459,6 +459,12 @@ section { margin-bottom: 64px; }
     object-fit: cover;
     display: block;
   }
+
+  // Tall drawings: show the whole image on white
+  &.contain {
+    background: #fff;
+    img { object-fit: contain; padding: 12px; }
+  }
 }
 
 .box-body {

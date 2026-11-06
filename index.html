@@ -60,9 +60,9 @@
     </div>
   </section>
 
-  <!-- ───────── Project (연도별 타임라인) ───────── -->
-  <section id="project">
-    <h2 class="section-title">Project</h2>
+  <!-- ───────── Timeline (연도별) ───────── -->
+  <section id="timeline">
+    <h2 class="section-title">Timeline</h2>
     {% assign years = "" | split: "" %}
     {% for n in site.data.news %}{% assign y = n.date | slice: 0, 4 %}{% unless years contains y %}{% assign years = years | push: y %}{% endunless %}{% endfor %}
     <div class="year-tabs" role="tablist">
@@ -83,7 +83,7 @@
     <div class="box-grid">
       {% for box in site.data.projects %}
       <button type="button" class="project-box" data-open="dlg-{{ box.id }}" aria-haspopup="dialog">
-        <span class="box-cover"><img src="{{ box.cover | relative_url }}" alt="" loading="lazy" /></span>
+        <span class="box-cover{% if box.cover_fit == 'contain' %} contain{% endif %}"><img src="{{ box.cover | relative_url }}" alt="" loading="lazy" /></span>
         <span class="box-body">
           <span class="box-top">
             <span class="box-period">{{ box.period }}</span>
