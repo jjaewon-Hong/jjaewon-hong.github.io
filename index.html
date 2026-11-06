@@ -71,7 +71,7 @@
     {% for y in years %}
     <ul class="timeline" data-year="{{ y }}"{% unless forloop.first %} hidden{% endunless %}>
       {% for n in site.data.news %}{% assign ny = n.date | slice: 0, 4 %}{% if ny == y %}
-      <li><span class="date">{{ n.date }}</span><span class="text">{{ n.text | markdownify | remove: '<p>' | remove: '</p>' }}</span></li>
+      <li><span class="date">{{ n.date }}</span><span class="text">{{ n.text | markdownify | remove: '<p>' | remove: '</p>' }}{% if n.badge %} <span class="box-badge">{{ n.badge }}</span>{% endif %}</span></li>
       {% endif %}{% endfor %}
     </ul>
     {% endfor %}
