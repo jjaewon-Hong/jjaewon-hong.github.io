@@ -80,8 +80,9 @@
     <h2 class="section-title">프로젝트 로드맵</h2>
     <p class="muted">{{ site.roadmap_intro | markdownify | remove: '<p>' | remove: '</p>' }}</p>
     {% assign marks = "①,②,③,④,⑤,⑥,⑦,⑧,⑨" | split: "," %}
+    {% assign rm_projects = site.data.projects | where_exp: "pr", "pr.roadmap" %}
     <ol class="roadmap">
-      {% for pr in site.data.projects %}
+      {% for pr in rm_projects %}
       <li>
         <span class="step">{{ marks[forloop.index0] }}</span>
         <span class="rm-title">{{ pr.short }}</span>
@@ -99,17 +100,31 @@
     <article class="project">
       <figure class="thumb">
         <img src="{{ pr.image | relative_url }}" alt="{{ pr.image_alt }}" loading="lazy" />
+        {% if pr.gallery %}
+        <div class="gallery">
+          {% for g in pr.gallery %}<img src="{{ g.src | relative_url }}" alt="{{ g.alt }}" loading="lazy" />{% endfor %}
+        </div>
+        {% endif %}
         {% if pr.caption %}<figcaption>{{ pr.caption }}</figcaption>{% endif %}
       </figure>
       <div class="body">
         <h3>{{ pr.title }}</h3>
         <p class="meta"><strong>{{ p.name }}</strong> · {{ pr.meta | markdownify | remove: '<p>' | remove: '</p>' }}</p>
-        <p class="badges">{% for l in pr.links %}<a class="badge" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</p>
+        {% if pr.award or pr.role %}
+        <p class="facts">
+          {% if pr.award %}<span class="award">{{ pr.award }}</span>{% endif %}
+          {% if pr.role %}<span class="role">{{ pr.role }}</span>{% endif %}
+        </p>
+        {% endif %}
+        {% if pr.links %}<p class="badges">{% for l in pr.links %}<a class="badge" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</p>{% endif %}
         <p class="tags">{% for t in pr.tags %}<span>{{ t }}</span>{% endfor %}</p>
         {{ pr.summary | markdownify }}
         <ul>
           {% for h in pr.highlights %}<li>{{ h | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
         </ul>
+        {% if pr.lesson %}
+        <div class="lesson"><strong>실패 요인</strong>{{ pr.lesson | markdownify }}</div>
+        {% endif %}
       </div>
     </article>
     {% endfor %}

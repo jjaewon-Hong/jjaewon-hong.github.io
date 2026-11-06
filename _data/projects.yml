@@ -62,3 +62,56 @@
     - "**전술 엔진 고도화:** 단일 프레임 임계값 판정 → 5-프레임 이동평균 + 위협·비위협 확률 차이 기반 판정으로 개선하여 순간적인 오탐에 의한 오발사를 억제"
     - "**도메인 확장:** 클래스를 UGV(경장갑차) / UAV / 로켓 / UAV 클러터(조류)로 재구성하여 재학습"
     - "**실시간 HUD 대시보드:** 라운드별 공격·방어 결과, 점수, 가용성(SLA) 시각화"
+
+# ───────── 대회·공모전 ─────────
+# award: 수상 표시 / role: 맡은 역할 / gallery: 추가 사진 / lesson: 실패 요인
+
+- title: "Soft On-boarding Agent: 신규 입사자 온보딩 AI Agent"
+  meta: "*Google AI Agent Challenge* · 2026.05"
+  role: AI(LLM 파이프라인) 담당 · 5인 팀
+  image: /assets/img/soa_screen.png
+  image_alt: Soft On-boarding Agent 화면 설계안 (4-Way View)
+  caption: 화면 설계안 — 저장소를 Functional · Data · Interface · Process & Flow 4가지 관점으로 시각화
+  links:
+    - { label: LLM 파이프라인 코드, url: "https://github.com/jjaewon-Hong/Soft-Onboarding-Agent-LLM" }
+    - { label: 전체 프로젝트, url: "https://github.com/kdjkdj111/Soft-On-boarding-Agent" }
+  tags: [Gemini API, GitHub API, Python, Supabase, React, Spring Boot]
+  summary: 신입과 팀장급 사이의 소통·정보 격차로 생기는 **온보딩 비효율**을 줄이기 위해, 팀원들의 GitHub 데이터를 분석해 신규 구성원에게 맞춤 온보딩 정보를 제공하는 AI Agent를 개발했습니다.
+  highlights:
+    - "**진행:** 바이브코딩 교육 4회 이수 후 AI Agent 개발 (DB 구축 · 서비스 배포)"
+    - "**팀 구성:** 컴퓨터공학과 동기 5인 — 기능별 풀스택 4명, AI 1명"
+    - "**담당 (AI):** 모든 기능이 거치는 LLM 파이프라인 구축 — GitHub API로 저장소 파일·커밋을 수집하고, Gemini(`gemini-3.5-flash`)로 파일 분류 및 기능·인터페이스·데이터·프로세스 뷰 분석 결과를 생성해 각 기능 담당자에게 제공"
+    - "**협업 방식:** 프론트엔드/백엔드와의 충돌을 막기 위해 LLM 파이프라인을 별도 저장소로 분리해 개발"
+  lesson: 기능 담당자마다 원하는 정보가 달라 하나하나 세밀하게 맞췄지만, 발표 자료가 기술 설명에만 치우쳐 **서비스가 왜 필요한지**에 대한 설득이 부족했습니다. 본선 진출에 실패했습니다.
+
+- title: "Square: 중고거래 무인 AI 사물함 아이디어"
+  meta: "*AI 활용 충북 미래 디자인 (AI 아이디어 공모전)* · 2025.10"
+  image: /assets/img/square_emblem.jpg
+  image_alt: Square 엠블럼
+  gallery:
+    - { src: /assets/img/square_locker_ext.jpg, alt: "라커 외부" }
+    - { src: /assets/img/square_locker_int.jpg, alt: "라커 내부" }
+  caption: 엠블럼 · 라커 외부 · 라커 내부 구상안
+  tags: [아이디어 기획, AI 검증, 로보틱스, 비대면 거래]
+  summary: 여러 중고거래 앱의 게시물을 하나로 연결하고, **AI가 물품을 검증하는 무인 사물함**에서 거래를 마무리하는 비대면 거래 허브 아이디어를 제시했습니다.
+  highlights:
+    - "**키워드:** 중고거래 무인 거래를 위한 무인 AI 사물함"
+    - "**문제:** 직거래 시 개인정보 노출·범죄 위험과 판매자·구매자 간 시간 조율의 어려움"
+    - "**제안:** 예약·보관 기반의 무인 거래 스테이션 + AI 물품 검증으로 거래의 신뢰와 안전 확보"
+  lesson: 대회가 끝난 뒤, 무인 AI 사물함과 비슷한 서비스가 잠깐 등장했다가 사라진 것을 확인했습니다.
+
+- title: "Smart Sip: AI 기반 디지털 음주 가이드 컵"
+  meta: "*2025 AI와 함께하는 스마트 라이프 캠프* · 2025.07"
+  award: "🏆 금상 · 영남대학교 공학교육혁신센터 (2025.07.03)"
+  role: 팀장 · 최종 발표자
+  image: /assets/img/smartsip_award.jpg
+  image_alt: 금상 수상 사진
+  gallery:
+    - { src: /assets/img/smartsip_group.jpg, alt: "캠프 단체 사진" }
+  caption: 금상 수상 · 캠프 단체 사진
+  tags: [아이디어톤, 알코올·무게·IMU 센서, AI 판단, 프로토타입, 팀장·발표]
+  summary: 경북대·영남대·대구대 연합 공학 아이디어톤에서 **센서 → AI 판단 → LED 표시**로 이어지는 디지털 음주 가이드 컵을 제안해 금상을 받았습니다.
+  highlights:
+    - "**핵심 기능:** 알코올·무게·IMU 센서로 에탄올 농도와 음주 패턴을 분석하고, AI가 취기를 판단해 위험하면 컵의 LED 색을 바꾸는 구조를 프로토타입으로 검증"
+    - "**확장 설계:** 앱 숙취 예보, 블루투스 연동 보호자 알림·위치 공유·대리운전 호출까지 이어지는 AI 비서 구조 설계"
+    - "**역할:** 팀장으로서 제한된 시간 안에 기술적 타당성을 조율하고 핵심 기능 중심 시연을 이끌었으며, 최종 발표에서 확장성과 안전 분야 발전 가능성을 설득"
