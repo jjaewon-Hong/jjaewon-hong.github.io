@@ -1,117 +1,177 @@
-# 프로젝트 목록: 위에 있을수록 먼저 표시됩니다.
-# short, roadmap, period 는 상단 '프로젝트 로드맵' 카드에 쓰입니다.
-# summary, highlights 에는 **굵게**, `코드` 같은 Markdown을 쓸 수 있습니다.
+# 프로젝트 상자 목록 (위에서부터 표시)
+# - 상자: id, title, intro(한 줄 소개), period, cover(상자 사진), badge(선택), flow(선택)
+# - projects: 상자를 누르면 열리는 상세 카드들
+#   short / roadmap / period 가 있으면 상세 창 위쪽에 진행 흐름 카드로 표시됩니다.
+#   award, role, gallery, lesson(실패 요인)은 선택 항목입니다.
+#   summary, highlights, lesson 에는 **굵게**, `코드` 같은 Markdown을 쓸 수 있습니다.
 
-- title: "Reasoning Guard: 오발사 방지형 미확인 공중 표적 판별 엔진"
-  short: Reasoning Guard
-  roadmap: "ResNet-18 표적 판별 모델<br>제로 패딩 · Fail-safe · 3단계 판정"
-  period: "2026.03 – 05"
-  meta: "*OSS설계 학기 프로젝트* · 2026.03 – 2026.05"
-  image: /assets/img/rg_architecture.jpg
-  image_alt: Reasoning Guard 시스템 구조도
-  links:
-    - { label: 코드, url: "https://github.com/jjaewon-Hong/Reasoning-Guard" }
-    - { label: 개념화, url: "https://github.com/jjaewon-Hong/Reasoning-Guard/blob/main/Conceptualization_22212026_홍재원.md" }
-    - { label: 분석, url: "https://github.com/jjaewon-Hong/Reasoning-Guard/blob/main/Analysis_22212026_홍재원.md" }
-    - { label: 설계, url: "https://github.com/jjaewon-Hong/Reasoning-Guard/blob/main/Design_22212026_홍재원.md" }
-  tags: [PyTorch, ResNet-18, ONNX, 객체지향 설계]
-  summary: 군집 드론·미사일이 혼재된 공중 위협 환경에서 **아군·비위협 객체를 오인 사격하지 않는 것**을 최우선 목표로 한 표적 판별 엔진입니다.
-  highlights:
-    - "**형상 보존 전처리:** 제로 패딩(Zero-Padding)으로 고속 비행체의 종횡비를 유지한 채 224×224 텐서로 변환"
-    - "**Fail-safe 데이터 검증:** 손상·비정상 파일을 학습 전 자동 차단하는 `FailSafeValidator` 모듈"
-    - "**오사격 방지 클래스 추가 (v1.1.0):** 전투기·드론·로켓(미사일 대리 객체)에 비위협 객체(조류) 클래스를 더해 4개 클래스로 확장"
-    - "**Softmax → Sigmoid 전환:** 클래스별 독립 확률(BCE 손실)을 출력해 위협·비위협 확률 경합 상황을 판단 가능하게 함"
-    - "**3단계 전술 판정 설계:** 신뢰도 기반 `SAFE`(대기) / `CAUTION`(수동 승인) / `DANGER`(교전)"
+- id: rg
+  title: Reasoning Guard 시리즈
+  flow: Reasoning Guard → Reasoning-Guard-System → RG-Agent
+  intro: 오발사 방지형 표적 판별 모델을 C++ 전술 엔진과 LLM 공방 에이전트까지 단계적으로 확장한 연속 프로젝트
+  period: 2026.03 – 2026.07
+  cover: /assets/img/rg_agent_dashboard.jpg
+  projects:
+  - title: 'Reasoning Guard: 오발사 방지형 미확인 공중 표적 판별 엔진'
+    short: Reasoning Guard
+    roadmap: ResNet-18 표적 판별 모델<br>제로 패딩 · Fail-safe · 3단계 판정
+    period: 2026.03 – 05
+    meta: '*OSS설계 학기 프로젝트* · 2026.03 – 2026.05'
+    image: /assets/img/rg_architecture.jpg
+    image_alt: Reasoning Guard 시스템 구조도
+    links:
+    - label: 코드
+      url: https://github.com/jjaewon-Hong/Reasoning-Guard
+    - label: 개념화
+      url: https://github.com/jjaewon-Hong/Reasoning-Guard/blob/main/Conceptualization_22212026_홍재원.md
+    - label: 분석
+      url: https://github.com/jjaewon-Hong/Reasoning-Guard/blob/main/Analysis_22212026_홍재원.md
+    - label: 설계
+      url: https://github.com/jjaewon-Hong/Reasoning-Guard/blob/main/Design_22212026_홍재원.md
+    tags:
+    - PyTorch
+    - ResNet-18
+    - ONNX
+    - 객체지향 설계
+    summary: 군집 드론·미사일이 혼재된 공중 위협 환경에서 **아군·비위협 객체를 오인 사격하지 않는 것**을 최우선 목표로 한 표적 판별 엔진입니다.
+    highlights:
+    - '**형상 보존 전처리:** 제로 패딩(Zero-Padding)으로 고속 비행체의 종횡비를 유지한 채 224×224 텐서로 변환'
+    - '**Fail-safe 데이터 검증:** 손상·비정상 파일을 학습 전 자동 차단하는 `FailSafeValidator` 모듈'
+    - '**오사격 방지 클래스 추가 (v1.1.0):** 전투기·드론·로켓(미사일 대리 객체)에 비위협 객체(조류) 클래스를 더해 4개 클래스로 확장'
+    - '**Softmax → Sigmoid 전환:** 클래스별 독립 확률(BCE 손실)을 출력해 위협·비위협 확률 경합 상황을 판단 가능하게 함'
+    - '**3단계 전술 판정 설계:** 신뢰도 기반 `SAFE`(대기) / `CAUTION`(수동 승인) / `DANGER`(교전)'
     - 개념화 → 분석 → 설계 → 구현의 4단계 SW 생명주기 산출물과 버전별(v1–v7) 노트북으로 개발 과정 관리
-
-- title: "Reasoning-Guard-System: ONNX·C++ 전술 엔진의 웹/네이티브 통합 시스템"
-  short: Reasoning-Guard-System
-  roadmap: "ONNX + C++ 전술 엔진<br>웹(WASM) / 네이티브 이식"
-  period: "2026.06"
-  meta: "*OSS설계 최종 프로젝트* · 2026.06"
-  image: /assets/img/rgs_demo.jpg
-  image_alt: "Reasoning-Guard-System 웹 시뮬레이션: 조류를 비위협으로 판단해 사격을 억제하는 화면"
-  caption: 조류를 비위협(ETC)으로 판단해 사격을 억제하는 장면
-  links:
-    - { label: 코드, url: "https://github.com/jjaewon-Hong/Reasoning-Guard-System" }
-    # 웹 데모 주소를 확인한 뒤 주석을 해제하세요
-    # - { label: 웹 데모, url: "https://jjaewon-hong.github.io/Reasoning-Guard-System/" }
-  tags: [C++, ONNX Runtime, WebAssembly, CMake, HTML/JS]
-  summary: ①에서 학습한 모델을 ONNX로 추출하여, 실제 장비 탑재를 고려한 **C++ 전술 엔진**과 결합한 시스템입니다. 동일한 코어를 두 가지 형태로 배포했습니다.
-  highlights:
-    - "**웹 시뮬레이션 (WASM):** C++ 전술 코어를 WebAssembly로 컴파일하여 브라우저에서 ONNX 모델과 연동. `▶ +1 HOUR` 버튼으로 새 표적이 포착되는 상황을 재현하고, 판정 결과를 전술 HUD에 실시간 표시"
-    - "**네이티브 코어 (임베디드 대상):** `preprocess.h`(센서 데이터 → 입력 텐서), `tactical_engine.cpp`(위협 수준 판정)로 구성된 하드웨어 이식용 C++ 모듈"
-    - "**교전 통제 로직:** 위협 확률과 비위협 확률을 함께 고려하는 복합 조건 (예: 위협 ≥ 0.90 *그리고* 비위협 ≤ 0.50 일 때만 `DANGER`)"
+  - title: 'Reasoning-Guard-System: ONNX·C++ 전술 엔진의 웹/네이티브 통합 시스템'
+    short: Reasoning-Guard-System
+    roadmap: ONNX + C++ 전술 엔진<br>웹(WASM) / 네이티브 이식
+    period: '2026.06'
+    meta: '*OSS설계 최종 프로젝트* · 2026.06'
+    image: /assets/img/rgs_demo.jpg
+    image_alt: 'Reasoning-Guard-System 웹 시뮬레이션: 조류를 비위협으로 판단해 사격을 억제하는 화면'
+    caption: 조류를 비위협(ETC)으로 판단해 사격을 억제하는 장면
+    links:
+    - label: 코드
+      url: https://github.com/jjaewon-Hong/Reasoning-Guard-System
+    tags:
+    - C++
+    - ONNX Runtime
+    - WebAssembly
+    - CMake
+    - HTML/JS
+    summary: ①에서 학습한 모델을 ONNX로 추출하여, 실제 장비 탑재를 고려한 **C++ 전술 엔진**과 결합한 시스템입니다. 동일한 코어를 두 가지 형태로 배포했습니다.
+    highlights:
+    - '**웹 시뮬레이션 (WASM):** C++ 전술 코어를 WebAssembly로 컴파일하여 브라우저에서 ONNX 모델과 연동. `▶ +1 HOUR` 버튼으로 새 표적이 포착되는 상황을 재현하고, 판정 결과를 전술 HUD에 실시간 표시'
+    - '**네이티브 코어 (임베디드 대상):** `preprocess.h`(센서 데이터 → 입력 텐서), `tactical_engine.cpp`(위협 수준 판정)로 구성된 하드웨어 이식용 C++ 모듈'
+    - '**교전 통제 로직:** 위협 확률과 비위협 확률을 함께 고려하는 복합 조건 (예: 위협 ≥ 0.90 *그리고* 비위협 ≤ 0.50 일 때만 `DANGER`)'
     - 군사 보안을 고려해 공개 데이터셋과 가상 시나리오만으로 검증
-
-- title: "RG-Agent: LLM 에이전트 기반 국방 자율 무기체계 사이버-물리 공방 시뮬레이션"
-  short: RG-Agent
-  roadmap: "LLM 공격/방어 에이전트<br>Docker 기반 공방 시뮬레이션"
-  period: "2026.07"
-  meta: "*DAH-2026* · 2026.07"
-  image: /assets/img/rg_agent_dashboard.jpg
-  image_alt: RG-Agent 실시간 공방 대시보드
-  links:
-    - { label: 코드, url: "https://github.com/jjaewon-Hong/RG-Agent" }
-  tags: [Docker Compose, Flask, Ollama (Llama 3), OpenCV, ONNX Runtime, C++ (.so)]
-  summary: ②의 판별·전술 엔진을 **방어 에이전트**로 삼고, LLM 기반 **공격 에이전트**가 이를 무력화하려는 공방을 컨테이너 환경에서 자동으로 진행하는 시뮬레이터입니다.
-  highlights:
-    - "**3-컨테이너 구조:** `target_env`(표적 영상 서버) · `attack_agent` · `defense_agent`(Flask API)를 Docker Compose로 오케스트레이션"
-    - "**공격 에이전트:** 로컬 LLM(Llama 3)이 한정된 예산 안에서 물리 공격(정밀 미사일 타격, 드론 군집)과 사이버 공격(적대적/스텔스 노이즈, 리플레이·스푸핑, 블라인딩·블러링)을 조합해 전술 수립"
-    - "**방어 에이전트:** 노이즈 공격은 LLM이 제시한 강도로 Non-Local Means / 양방향 필터 정화, 리플레이·스푸핑은 타임스탬프 + 지각 해시(pHash) / 광학 흐름으로 탐지, 블라인딩·블러링은 백색 과포화 비율·라플라시안 분산으로 센서 마비 판정"
-    - "**전술 엔진 고도화:** 단일 프레임 임계값 판정 → 5-프레임 이동평균 + 위협·비위협 확률 차이 기반 판정으로 개선하여 순간적인 오탐에 의한 오발사를 억제"
-    - "**도메인 확장:** 클래스를 UGV(경장갑차) / UAV / 로켓 / UAV 클러터(조류)로 재구성하여 재학습"
-    - "**실시간 HUD 대시보드:** 라운드별 공격·방어 결과, 점수, 가용성(SLA) 시각화"
-
-# ───────── 대회·공모전 ─────────
-# award: 수상 표시 / role: 맡은 역할 / gallery: 추가 사진 / lesson: 실패 요인
-
-- title: "Soft On-boarding Agent: 신규 입사자 온보딩 AI Agent"
-  meta: "*Google AI Agent Challenge* · 2026.05"
-  role: AI(LLM 파이프라인) 담당 · 5인 팀
-  image: /assets/img/soa_screen.png
-  image_alt: Soft On-boarding Agent 화면 설계안 (4-Way View)
-  caption: 화면 설계안 — 저장소를 Functional · Data · Interface · Process & Flow 4가지 관점으로 시각화
-  links:
-    - { label: LLM 파이프라인 코드, url: "https://github.com/jjaewon-Hong/Soft-Onboarding-Agent-LLM" }
-    - { label: 전체 프로젝트, url: "https://github.com/kdjkdj111/Soft-On-boarding-Agent" }
-  tags: [Gemini API, GitHub API, Python, Supabase, React, Spring Boot]
-  summary: 신입과 팀장급 사이의 소통·정보 격차로 생기는 **온보딩 비효율**을 줄이기 위해, 팀원들의 GitHub 데이터를 분석해 신규 구성원에게 맞춤 온보딩 정보를 제공하는 AI Agent를 개발했습니다.
-  highlights:
-    - "**진행:** 바이브코딩 교육 4회 이수 후 AI Agent 개발 (DB 구축 · 서비스 배포)"
-    - "**팀 구성:** 컴퓨터공학과 동기 5인 — 기능별 풀스택 4명, AI 1명"
-    - "**담당 (AI):** 모든 기능이 거치는 LLM 파이프라인 구축 — GitHub API로 저장소 파일·커밋을 수집하고, Gemini(`gemini-3.5-flash`)로 파일 분류 및 기능·인터페이스·데이터·프로세스 뷰 분석 결과를 생성해 각 기능 담당자에게 제공"
-    - "**협업 방식:** 프론트엔드/백엔드와의 충돌을 막기 위해 LLM 파이프라인을 별도 저장소로 분리해 개발"
-  lesson: 기능 담당자마다 원하는 정보가 달라 하나하나 세밀하게 맞췄지만, 발표 자료가 기술 설명에만 치우쳐 **서비스가 왜 필요한지**에 대한 설득이 부족했습니다. 본선 진출에 실패했습니다.
-
-- title: "Square: 중고거래 무인 AI 사물함 아이디어"
-  meta: "*AI 활용 충북 미래 디자인 (AI 아이디어 공모전)* · 2025.10"
-  image: /assets/img/square_emblem.jpg
-  image_alt: Square 엠블럼
-  gallery:
-    - { src: /assets/img/square_locker_ext.jpg, alt: "라커 외부" }
-    - { src: /assets/img/square_locker_int.jpg, alt: "라커 내부" }
-  caption: 엠블럼 · 라커 외부 · 라커 내부 구상안
-  tags: [아이디어 기획, AI 검증, 로보틱스, 비대면 거래]
-  summary: 여러 중고거래 앱의 게시물을 하나로 연결하고, **AI가 물품을 검증하는 무인 사물함**에서 거래를 마무리하는 비대면 거래 허브 아이디어를 제시했습니다.
-  highlights:
-    - "**키워드:** 중고거래 무인 거래를 위한 무인 AI 사물함"
-    - "**문제:** 직거래 시 개인정보 노출·범죄 위험과 판매자·구매자 간 시간 조율의 어려움"
-    - "**제안:** 예약·보관 기반의 무인 거래 스테이션 + AI 물품 검증으로 거래의 신뢰와 안전 확보"
-  lesson: 대회가 끝난 뒤, 무인 AI 사물함과 비슷한 서비스가 잠깐 등장했다가 사라진 것을 확인했습니다.
-
-- title: "Smart Sip: AI 기반 디지털 음주 가이드 컵"
-  meta: "*2025 AI와 함께하는 스마트 라이프 캠프* · 2025.07"
-  award: "🏆 금상 · 영남대학교 공학교육혁신센터 (2025.07.03)"
-  role: 팀장 · 최종 발표자
-  image: /assets/img/smartsip_award.jpg
-  image_alt: 금상 수상 사진
-  gallery:
-    - { src: /assets/img/smartsip_group.jpg, alt: "캠프 단체 사진" }
-  caption: 금상 수상 · 캠프 단체 사진
-  tags: [아이디어톤, 알코올·무게·IMU 센서, AI 판단, 프로토타입, 팀장·발표]
-  summary: 경북대·영남대·대구대 연합 공학 아이디어톤에서 **센서 → AI 판단 → LED 표시**로 이어지는 디지털 음주 가이드 컵을 제안해 금상을 받았습니다.
-  highlights:
-    - "**핵심 기능:** 알코올·무게·IMU 센서로 에탄올 농도와 음주 패턴을 분석하고, AI가 취기를 판단해 위험하면 컵의 LED 색을 바꾸는 구조를 프로토타입으로 검증"
-    - "**확장 설계:** 앱 숙취 예보, 블루투스 연동 보호자 알림·위치 공유·대리운전 호출까지 이어지는 AI 비서 구조 설계"
-    - "**역할:** 팀장으로서 제한된 시간 안에 기술적 타당성을 조율하고 핵심 기능 중심 시연을 이끌었으며, 최종 발표에서 확장성과 안전 분야 발전 가능성을 설득"
+  - title: 'RG-Agent: LLM 에이전트 기반 국방 자율 무기체계 사이버-물리 공방 시뮬레이션'
+    short: RG-Agent
+    roadmap: LLM 공격/방어 에이전트<br>Docker 기반 공방 시뮬레이션
+    period: '2026.07'
+    meta: '*DAH-2026* · 2026.07'
+    image: /assets/img/rg_agent_dashboard.jpg
+    image_alt: RG-Agent 실시간 공방 대시보드
+    links:
+    - label: 코드
+      url: https://github.com/jjaewon-Hong/RG-Agent
+    tags:
+    - Docker Compose
+    - Flask
+    - Ollama (Llama 3)
+    - OpenCV
+    - ONNX Runtime
+    - C++ (.so)
+    summary: ②의 판별·전술 엔진을 **방어 에이전트**로 삼고, LLM 기반 **공격 에이전트**가 이를 무력화하려는 공방을 컨테이너 환경에서 자동으로 진행하는 시뮬레이터입니다.
+    highlights:
+    - '**3-컨테이너 구조:** `target_env`(표적 영상 서버) · `attack_agent` · `defense_agent`(Flask API)를 Docker Compose로 오케스트레이션'
+    - '**공격 에이전트:** 로컬 LLM(Llama 3)이 한정된 예산 안에서 물리 공격(정밀 미사일 타격, 드론 군집)과 사이버 공격(적대적/스텔스 노이즈, 리플레이·스푸핑, 블라인딩·블러링)을 조합해 전술 수립'
+    - '**방어 에이전트:** 노이즈 공격은 LLM이 제시한 강도로 Non-Local Means / 양방향 필터 정화, 리플레이·스푸핑은 타임스탬프 + 지각 해시(pHash) / 광학 흐름으로 탐지, 블라인딩·블러링은 백색 과포화 비율·라플라시안 분산으로 센서 마비 판정'
+    - '**전술 엔진 고도화:** 단일 프레임 임계값 판정 → 5-프레임 이동평균 + 위협·비위협 확률 차이 기반 판정으로 개선하여 순간적인 오탐에 의한 오발사를 억제'
+    - '**도메인 확장:** 클래스를 UGV(경장갑차) / UAV / 로켓 / UAV 클러터(조류)로 재구성하여 재학습'
+    - '**실시간 HUD 대시보드:** 라운드별 공격·방어 결과, 점수, 가용성(SLA) 시각화'
+- id: soa
+  title: Soft On-boarding Agent
+  intro: GitHub 데이터를 분석해 신규 입사자의 회사 적응을 돕는 AI Agent (LLM 파이프라인 담당)
+  period: '2026.05'
+  cover: /assets/img/soa_screen.png
+  projects:
+  - title: 'Soft On-boarding Agent: 신규 입사자 온보딩 AI Agent'
+    meta: '*Google AI Agent Challenge* · 2026.05'
+    role: AI(LLM 파이프라인) 담당 · 5인 팀
+    image: /assets/img/soa_screen.png
+    image_alt: Soft On-boarding Agent 화면 설계안 (4-Way View)
+    caption: 화면 설계안 — 저장소를 Functional · Data · Interface · Process & Flow 4가지 관점으로 시각화
+    links:
+    - label: LLM 파이프라인 코드
+      url: https://github.com/jjaewon-Hong/Soft-Onboarding-Agent-LLM
+    - label: 전체 프로젝트
+      url: https://github.com/kdjkdj111/Soft-On-boarding-Agent
+    tags:
+    - Gemini API
+    - GitHub API
+    - Python
+    - Supabase
+    - React
+    - Spring Boot
+    summary: 신입과 팀장급 사이의 소통·정보 격차로 생기는 **온보딩 비효율**을 줄이기 위해, 팀원들의 GitHub 데이터를 분석해 신규 구성원에게 맞춤 온보딩 정보를 제공하는 AI Agent를 개발했습니다.
+    highlights:
+    - '**진행:** 바이브코딩 교육 4회(9시~18시) 이수 후 AI Agent 개발 (DB 구축 · 서비스 배포)'
+    - '**팀 구성:** 컴퓨터공학과 동기 5인 — 기능별 풀스택 4명, AI 1명'
+    - '**담당 (AI):** 모든 기능이 거치는 LLM 파이프라인 구축 — GitHub API로 저장소 파일·커밋을 수집하고, Gemini(`gemini-3.5-flash`)로 파일 분류 및 기능·인터페이스·데이터·프로세스 뷰 분석 결과를 생성해 각 기능 담당자에게 제공'
+    - '**협업 방식:** 프론트엔드/백엔드와의 충돌을 막기 위해 LLM 파이프라인을 별도 저장소로 분리해 개발'
+    lesson: 기능 담당자마다 원하는 정보가 달라 하나하나 세밀하게 맞췄지만, 발표 자료가 기술 설명에만 치우쳐 **서비스가 왜 필요한지**에 대한 설득이 부족했습니다. 본선 진출에 실패했습니다.
+- id: square
+  title: Square
+  intro: 중고거래를 안전하게 마무리하는 무인 AI 사물함 아이디어
+  period: '2025.10'
+  cover: /assets/img/square_cover.jpg
+  projects:
+  - title: 'Square: 중고거래 무인 AI 사물함 아이디어'
+    meta: '*AI 활용 충북 미래 디자인 (AI 아이디어 공모전)* · 2025.10'
+    image: /assets/img/square_emblem.jpg
+    image_alt: Square 엠블럼
+    gallery:
+    - src: /assets/img/square_locker_ext.jpg
+      alt: 라커 외부
+    - src: /assets/img/square_locker_int.jpg
+      alt: 라커 내부
+    caption: 엠블럼 · 라커 외부 · 라커 내부 구상안
+    tags:
+    - 아이디어 기획
+    - AI 검증
+    - 로보틱스
+    - 비대면 거래
+    summary: 여러 중고거래 앱의 게시물을 하나로 연결하고, **AI가 물품을 검증하는 무인 사물함**에서 거래를 마무리하는 비대면 거래 허브 아이디어를 제시했습니다.
+    highlights:
+    - '**키워드:** 중고거래 무인 거래를 위한 무인 AI 사물함'
+    - '**문제:** 직거래 시 개인정보 노출·범죄 위험과 판매자·구매자 간 시간 조율의 어려움'
+    - '**제안:** 예약·보관 기반의 무인 거래 스테이션 + AI 물품 검증으로 거래의 신뢰와 안전 확보'
+    lesson: 대회가 끝난 뒤, 무인 AI 사물함과 비슷한 서비스가 잠깐 등장했다가 사라진 것을 확인했습니다.
+- id: smartsip
+  title: Smart Sip
+  intro: 센서와 AI로 음주 상태를 알려 주는 디지털 음주 가이드 컵
+  period: '2025.07'
+  cover: /assets/img/smartsip_award.jpg
+  badge: 🏆 금상
+  projects:
+  - title: 'Smart Sip: AI 기반 디지털 음주 가이드 컵'
+    meta: '*2025 AI와 함께하는 스마트 라이프 캠프* · 2025.07'
+    award: 🏆 금상 · 영남대학교 공학교육혁신센터 (2025.07.03)
+    role: 팀장 · 최종 발표자
+    image: /assets/img/smartsip_award.jpg
+    image_alt: 금상 수상 사진
+    gallery:
+    - src: /assets/img/smartsip_group.jpg
+      alt: 캠프 단체 사진
+    caption: 금상 수상 · 캠프 단체 사진
+    tags:
+    - 아이디어톤
+    - 알코올·무게·IMU 센서
+    - AI 판단
+    - 프로토타입
+    - 팀장·발표
+    summary: 경북대·영남대·대구대 연합 공학 아이디어톤에서 **센서 → AI 판단 → LED 표시**로 이어지는 디지털 음주 가이드 컵을 제안해 금상을 받았습니다.
+    highlights:
+    - '**핵심 기능:** 알코올·무게·IMU 센서로 에탄올 농도와 음주 패턴을 분석하고, AI가 취기를 판단해 위험하면 컵의 LED 색을 바꾸는 구조를 프로토타입으로 검증'
+    - '**확장 설계:** 앱 숙취 예보, 블루투스 연동 보호자 알림·위치 공유·대리운전 호출까지 이어지는 AI 비서 구조 설계'
+    - '**역할:** 팀장으로서 제한된 시간 안에 기술적 타당성을 조율하고 핵심 기능 중심 시연을 이끌었으며, 최종 발표에서 확장성과 안전 분야 발전 가능성을 설득'

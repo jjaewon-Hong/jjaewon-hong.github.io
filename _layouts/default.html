@@ -75,58 +75,87 @@
     {% endfor %}
   </section>
 
-  <!-- ───────── 프로젝트 로드맵 ───────── -->
-  <section id="roadmap">
-    <h2 class="section-title">프로젝트 로드맵</h2>
-    <p class="muted">{{ site.roadmap_intro | markdownify | remove: '<p>' | remove: '</p>' }}</p>
-    {% assign marks = "①,②,③,④,⑤,⑥,⑦,⑧,⑨" | split: "," %}
-    {% assign rm_projects = site.data.projects | where_exp: "pr", "pr.roadmap" %}
-    <ol class="roadmap">
-      {% for pr in rm_projects %}
-      <li>
-        <span class="step">{{ marks[forloop.index0] }}</span>
-        <span class="rm-title">{{ pr.short }}</span>
-        <span class="rm-desc">{{ pr.roadmap }}</span>
-        <span class="rm-date">{{ pr.period }}</span>
-      </li>
-      {% endfor %}
-    </ol>
-  </section>
-
-  <!-- ───────── 프로젝트 상세 ───────── -->
+  <!-- ───────── 프로젝트 상세 (상자를 누르면 상세 창이 열림) ───────── -->
   <section id="projects">
     <h2 class="section-title">프로젝트 상세</h2>
-    {% for pr in site.data.projects %}
-    <article class="project">
-      <figure class="thumb">
-        <img src="{{ pr.image | relative_url }}" alt="{{ pr.image_alt }}" loading="lazy" />
-        {% if pr.gallery %}
-        <div class="gallery">
-          {% for g in pr.gallery %}<img src="{{ g.src | relative_url }}" alt="{{ g.alt }}" loading="lazy" />{% endfor %}
+    <div class="box-grid">
+      {% for box in site.data.projects %}
+      <button type="button" class="project-box" data-open="dlg-{{ box.id }}" aria-haspopup="dialog">
+        <span class="box-cover"><img src="{{ box.cover | relative_url }}" alt="" loading="lazy" /></span>
+        <span class="box-body">
+          <span class="box-top">
+            <span class="box-period">{{ box.period }}</span>
+            {% if box.badge %}<span class="box-badge">{{ box.badge }}</span>{% endif %}
+            {% if box.projects.size > 1 %}<span class="box-count">프로젝트 {{ box.projects.size }}개</span>{% endif %}
+          </span>
+          <span class="box-title">{{ box.title }}</span>
+          {% if box.flow %}<span class="box-flow">{{ box.flow }}</span>{% endif %}
+          <span class="box-intro">{{ box.intro }}</span>
+          <span class="box-more">자세히 보기 &rarr;</span>
+        </span>
+      </button>
+      {% endfor %}
+    </div>
+
+    {% assign marks = "①,②,③,④,⑤,⑥,⑦,⑧,⑨" | split: "," %}
+    {% for box in site.data.projects %}
+    <dialog class="project-dialog" id="dlg-{{ box.id }}" aria-labelledby="dlg-{{ box.id }}-title">
+      <div class="dialog-head">
+        <div>
+          <p class="dialog-period">{{ box.period }}</p>
+          <h3 id="dlg-{{ box.id }}-title">{{ box.title }}</h3>
         </div>
-        {% endif %}
-        {% if pr.caption %}<figcaption>{{ pr.caption }}</figcaption>{% endif %}
-      </figure>
-      <div class="body">
-        <h3>{{ pr.title }}</h3>
-        <p class="meta"><strong>{{ p.name }}</strong> · {{ pr.meta | markdownify | remove: '<p>' | remove: '</p>' }}</p>
-        {% if pr.award or pr.role %}
-        <p class="facts">
-          {% if pr.award %}<span class="award">{{ pr.award }}</span>{% endif %}
-          {% if pr.role %}<span class="role">{{ pr.role }}</span>{% endif %}
-        </p>
-        {% endif %}
-        {% if pr.links %}<p class="badges">{% for l in pr.links %}<a class="badge" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</p>{% endif %}
-        <p class="tags">{% for t in pr.tags %}<span>{{ t }}</span>{% endfor %}</p>
-        {{ pr.summary | markdownify }}
-        <ul>
-          {% for h in pr.highlights %}<li>{{ h | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
-        </ul>
-        {% if pr.lesson %}
-        <div class="lesson"><strong>실패 요인</strong>{{ pr.lesson | markdownify }}</div>
-        {% endif %}
+        <button type="button" class="dialog-close" aria-label="닫기">&times;</button>
       </div>
-    </article>
+      <div class="dialog-body">
+        {% assign steps = box.projects | where_exp: "pr", "pr.roadmap" %}
+        {% if steps.size > 1 %}
+        <ol class="roadmap">
+          {% for pr in steps %}
+          <li>
+            <span class="step">{{ marks[forloop.index0] }}</span>
+            <span class="rm-title">{{ pr.short }}</span>
+            <span class="rm-desc">{{ pr.roadmap }}</span>
+            <span class="rm-date">{{ pr.period }}</span>
+          </li>
+          {% endfor %}
+        </ol>
+        {% endif %}
+
+        {% for pr in box.projects %}
+        <article class="project">
+          <figure class="thumb">
+            <img src="{{ pr.image | relative_url }}" alt="{{ pr.image_alt }}" loading="lazy" />
+            {% if pr.gallery %}
+            <div class="gallery">
+              {% for g in pr.gallery %}<img src="{{ g.src | relative_url }}" alt="{{ g.alt }}" loading="lazy" />{% endfor %}
+            </div>
+            {% endif %}
+            {% if pr.caption %}<figcaption>{{ pr.caption }}</figcaption>{% endif %}
+          </figure>
+          <div class="body">
+            <h4>{% if steps.size > 1 %}<span class="step">{{ marks[forloop.index0] }}</span> {% endif %}{{ pr.title }}</h4>
+            <p class="meta"><strong>{{ p.name }}</strong> · {{ pr.meta | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+            {% if pr.award or pr.role %}
+            <p class="facts">
+              {% if pr.award %}<span class="award">{{ pr.award }}</span>{% endif %}
+              {% if pr.role %}<span class="role">{{ pr.role }}</span>{% endif %}
+            </p>
+            {% endif %}
+            {% if pr.links %}<p class="badges">{% for l in pr.links %}<a class="badge" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</p>{% endif %}
+            <p class="tags">{% for t in pr.tags %}<span>{{ t }}</span>{% endfor %}</p>
+            {{ pr.summary | markdownify }}
+            <ul>
+              {% for h in pr.highlights %}<li>{{ h | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
+            </ul>
+            {% if pr.lesson %}
+            <div class="lesson"><strong>실패 요인</strong>{{ pr.lesson | markdownify }}</div>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </dialog>
     {% endfor %}
   </section>
 
@@ -171,6 +200,18 @@
       try { localStorage.setItem("theme", next); } catch (e) {}
     });
   })();
+
+  // 프로젝트 상자: 누르면 상세 창 열기, 닫기 버튼·바깥 클릭·Esc로 닫기
+  document.querySelectorAll(".project-box").forEach(function (box) {
+    box.addEventListener("click", function () {
+      var dlg = document.getElementById(box.getAttribute("data-open"));
+      if (dlg && dlg.showModal) { dlg.showModal(); dlg.scrollTop = 0; }
+    });
+  });
+  document.querySelectorAll(".project-dialog").forEach(function (dlg) {
+    dlg.querySelector(".dialog-close").addEventListener("click", function () { dlg.close(); });
+    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  });
 
   // 연도 버튼: 선택한 연도의 항목만 표시
   document.querySelectorAll(".year-tab").forEach(function (tab) {

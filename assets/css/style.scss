@@ -408,6 +408,149 @@ section { margin-bottom: 64px; }
   }
 }
 
+// ---------- Project boxes ----------
+.box-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+
+  @include tablet { grid-template-columns: 1fr; }
+}
+
+.project-box {
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  background: c(surface);
+  border: 1px solid c(border);
+  border-radius: $radius-lg;
+  overflow: hidden;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    transform: translateY(-3px);
+    border-color: c(accent);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    outline: none;
+  }
+
+  &:hover .box-more { text-decoration: underline; }
+}
+
+.box-cover {
+  display: block;
+  aspect-ratio: 16 / 9;
+  background: c(code-bg);
+  border-bottom: 1px solid c(border);
+
+  position: relative;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+}
+
+.box-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 18px 18px;
+  flex: 1;
+}
+
+.box-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.box-period { font-size: 13px; font-weight: 600; color: c(muted); margin-right: 4px; }
+
+.box-badge,
+.box-count {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 1px 8px;
+  border-radius: 999px;
+}
+.box-badge { background: #fdf3d7; color: #8a5a00; }
+.box-count { background: c(accent-soft); color: c(accent); }
+
+.box-title { font-size: 19px; font-weight: 700; line-height: 1.4; }
+.box-flow { font-size: 13px; font-weight: 600; color: c(accent); }
+.box-intro { font-size: 14.5px; color: c(muted); line-height: 1.6; }
+.box-more { margin-top: auto; padding-top: 6px; font-size: 14px; font-weight: 600; color: c(accent); }
+
+// ---------- Project detail window ----------
+.project-dialog {
+  width: min(960px, calc(100vw - 32px));
+  max-height: calc(100vh - 48px);
+  padding: 0;
+  border: 1px solid c(border);
+  border-radius: $radius-lg;
+  background: c(bg);
+  color: c(text);
+  overflow: auto;
+
+  &::backdrop { background: rgba(10, 12, 16, 0.55); }
+}
+
+body:has(.project-dialog[open]) { overflow: hidden; }
+
+.dialog-head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 24px;
+  background: c(nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid c(border);
+
+  h3 { margin: 0; font-size: 22px; line-height: 1.35; }
+}
+
+.dialog-period { margin: 0 0 2px; font-size: 13px; font-weight: 600; color: c(muted); }
+
+.dialog-close {
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid c(border);
+  background: c(surface);
+  color: c(text);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+
+  &:hover { color: c(accent); border-color: c(accent); }
+}
+
+.dialog-body {
+  padding: 8px 24px 24px;
+
+  .roadmap { margin: 16px 0 8px; }
+
+  @include phone { padding: 4px 16px 16px; }
+}
+
 // ---------- Roadmap ----------
 .roadmap {
   list-style: none;
@@ -484,7 +627,12 @@ section { margin-bottom: 64px; }
     }
   }
 
-  h3 { font-size: 18px; line-height: 1.45; margin: 0 0 4px; }
+  h4 {
+    font-size: 18px;
+    line-height: 1.45;
+    margin: 0 0 4px;
+    .step { color: c(accent); }
+  }
   p { margin: 8px 0; }
 
   .meta {
@@ -568,9 +716,11 @@ section { margin-bottom: 64px; }
   .role { background: c(accent-soft); color: c(accent); }
 }
 
-:root[data-theme="dark"] .facts .award { background: #3a2f12; color: #f2c86b; }
+:root[data-theme="dark"] .facts .award,
+:root[data-theme="dark"] .box-badge { background: #3a2f12; color: #f2c86b; }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .facts .award { background: #3a2f12; color: #f2c86b; }
+  :root:not([data-theme="light"]) .facts .award,
+  :root:not([data-theme="light"]) .box-badge { background: #3a2f12; color: #f2c86b; }
 }
 
 // Lessons learned box
