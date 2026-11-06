@@ -1,0 +1,9 @@
+# 소식: 최신 항목을 맨 위에 추가하세요. text 에는 **굵게** 같은 Markdown을 쓸 수 있습니다.
+- date: "2026.07"
+  text: "**RG-Agent** 공개 — LLM 공격/방어 에이전트 기반 사이버-물리 공방 시뮬레이션 (DAH-2026)"
+- date: "2026.06"
+  text: "**Reasoning-Guard-System** 완성 — ONNX + C++ 전술 엔진의 웹(WASM)·네이티브 통합"
+- date: "2026.05"
+  text: "**Reasoning Guard v1.1.0** — 4개 클래스 확장 및 Sigmoid 독립 확률 추론 구조로 개편"
+- date: "2026.03"
+  text: "**Reasoning Guard** 프로젝트 시작 (OSS설계 과목)"

@@ -1,0 +1,7 @@
+title: 홍재원 | Jaewon Hong
+description: 영남대학교 컴퓨터공학과 홍재원의 포트폴리오
+lang: ko
+last_updated: "2026.11"
+roadmap_intro: 하나의 표적 판별 모델을 **모델 → 시스템 → 에이전트** 순서로 확장한 연속 프로젝트입니다.
+markdown: kramdown
+exclude: [README.md]

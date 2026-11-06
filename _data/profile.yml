@@ -1,0 +1,40 @@
+# 왼쪽 프로필 영역
+name: 홍재원
+name_en: Jaewon Hong
+
+# 프로필 사진: GitHub 프로필 사진을 그대로 사용합니다. 다른 사진을 쓰려면 assets/img/ 에 넣고 경로를 바꾸세요.
+photo: "https://github.com/jjaewon-Hong.png?size=400"
+initial: 홍
+
+affiliation:
+  - 영남대학교 컴퓨터공학과 학부생
+
+# 링크: icon 은 email / github / cv 중 하나
+links:
+  - label: 이메일
+    url: mailto:hongjaewon0428@gmail.com
+    icon: email
+  - label: GitHub
+    url: https://github.com/jjaewon-Hong
+    icon: github
+  # 이력서를 추가하면 아래 주석을 해제하세요
+  # - label: 이력서
+  #   url: /assets/cv.pdf
+  #   icon: cv
+
+# 소개 아래 "관심 분야" 칩
+interests:
+  - 국방용 고신뢰·Fail-safe 영상 인식
+  - 온디바이스 추론 (ONNX · C++ · WebAssembly)
+  - 적대적 공격 대응 · 에이전트 기반 시뮬레이션
+
+# 기술 스택
+skills:
+  - category: 언어
+    items: Python, C++, C
+  - category: AI / 비전
+    items: PyTorch, ONNX / ONNX Runtime, OpenCV
+  - category: 시스템
+    items: Linux, Docker / Docker Compose, CMake, WebAssembly
+  - category: LLM / 에이전트
+    items: Ollama (Llama 3), Flask REST API

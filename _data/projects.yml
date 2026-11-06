@@ -1,0 +1,64 @@
+# 프로젝트 목록: 위에 있을수록 먼저 표시됩니다.
+# short, roadmap, period 는 상단 '프로젝트 로드맵' 카드에 쓰입니다.
+# summary, highlights 에는 **굵게**, `코드` 같은 Markdown을 쓸 수 있습니다.
+
+- title: "Reasoning Guard: 오발사 방지형 미확인 공중 표적 판별 엔진"
+  short: Reasoning Guard
+  roadmap: "ResNet-18 표적 판별 모델<br>제로 패딩 · Fail-safe · 3단계 판정"
+  period: "2026.03 – 05"
+  meta: "*OSS설계 학기 프로젝트* · 2026.03 – 2026.05"
+  image: /assets/img/rg_architecture.jpg
+  image_alt: Reasoning Guard 시스템 구조도
+  links:
+    - { label: 코드, url: "https://github.com/jjaewon-Hong/Reasoning-Guard" }
+    - { label: 개념화, url: "https://github.com/jjaewon-Hong/Reasoning-Guard/blob/main/Conceptualization_22212026_홍재원.md" }
+    - { label: 분석, url: "https://github.com/jjaewon-Hong/Reasoning-Guard/blob/main/Analysis_22212026_홍재원.md" }
+    - { label: 설계, url: "https://github.com/jjaewon-Hong/Reasoning-Guard/blob/main/Design_22212026_홍재원.md" }
+  tags: [PyTorch, ResNet-18, ONNX, 객체지향 설계]
+  summary: 군집 드론·미사일이 혼재된 공중 위협 환경에서 **아군·비위협 객체를 오인 사격하지 않는 것**을 최우선 목표로 한 표적 판별 엔진입니다.
+  highlights:
+    - "**형상 보존 전처리:** 제로 패딩(Zero-Padding)으로 고속 비행체의 종횡비를 유지한 채 224×224 텐서로 변환"
+    - "**Fail-safe 데이터 검증:** 손상·비정상 파일을 학습 전 자동 차단하는 `FailSafeValidator` 모듈"
+    - "**오사격 방지 클래스 추가 (v1.1.0):** 전투기·드론·로켓(미사일 대리 객체)에 비위협 객체(조류) 클래스를 더해 4개 클래스로 확장"
+    - "**Softmax → Sigmoid 전환:** 클래스별 독립 확률(BCE 손실)을 출력해 위협·비위협 확률 경합 상황을 판단 가능하게 함"
+    - "**3단계 전술 판정 설계:** 신뢰도 기반 `SAFE`(대기) / `CAUTION`(수동 승인) / `DANGER`(교전)"
+    - 개념화 → 분석 → 설계 → 구현의 4단계 SW 생명주기 산출물과 버전별(v1–v7) 노트북으로 개발 과정 관리
+
+- title: "Reasoning-Guard-System: ONNX·C++ 전술 엔진의 웹/네이티브 통합 시스템"
+  short: Reasoning-Guard-System
+  roadmap: "ONNX + C++ 전술 엔진<br>웹(WASM) / 네이티브 이식"
+  period: "2026.06"
+  meta: "*OSS설계 최종 프로젝트* · 2026.06"
+  image: /assets/img/rgs_demo.jpg
+  image_alt: "Reasoning-Guard-System 웹 시뮬레이션: 조류를 비위협으로 판단해 사격을 억제하는 화면"
+  caption: 조류를 비위협(ETC)으로 판단해 사격을 억제하는 장면
+  links:
+    - { label: 코드, url: "https://github.com/jjaewon-Hong/Reasoning-Guard-System" }
+    # 웹 데모 주소를 확인한 뒤 주석을 해제하세요
+    # - { label: 웹 데모, url: "https://jjaewon-hong.github.io/Reasoning-Guard-System/" }
+  tags: [C++, ONNX Runtime, WebAssembly, CMake, HTML/JS]
+  summary: ①에서 학습한 모델을 ONNX로 추출하여, 실제 장비 탑재를 고려한 **C++ 전술 엔진**과 결합한 시스템입니다. 동일한 코어를 두 가지 형태로 배포했습니다.
+  highlights:
+    - "**웹 시뮬레이션 (WASM):** C++ 전술 코어를 WebAssembly로 컴파일하여 브라우저에서 ONNX 모델과 연동. `▶ +1 HOUR` 버튼으로 새 표적이 포착되는 상황을 재현하고, 판정 결과를 전술 HUD에 실시간 표시"
+    - "**네이티브 코어 (임베디드 대상):** `preprocess.h`(센서 데이터 → 입력 텐서), `tactical_engine.cpp`(위협 수준 판정)로 구성된 하드웨어 이식용 C++ 모듈"
+    - "**교전 통제 로직:** 위협 확률과 비위협 확률을 함께 고려하는 복합 조건 (예: 위협 ≥ 0.90 *그리고* 비위협 ≤ 0.50 일 때만 `DANGER`)"
+    - 군사 보안을 고려해 공개 데이터셋과 가상 시나리오만으로 검증
+
+- title: "RG-Agent: LLM 에이전트 기반 국방 자율 무기체계 사이버-물리 공방 시뮬레이션"
+  short: RG-Agent
+  roadmap: "LLM 공격/방어 에이전트<br>Docker 기반 공방 시뮬레이션"
+  period: "2026.07"
+  meta: "*DAH-2026* · 2026.07"
+  image: /assets/img/rg_agent_dashboard.jpg
+  image_alt: RG-Agent 실시간 공방 대시보드
+  links:
+    - { label: 코드, url: "https://github.com/jjaewon-Hong/RG-Agent" }
+  tags: [Docker Compose, Flask, Ollama (Llama 3), OpenCV, ONNX Runtime, C++ (.so)]
+  summary: ②의 판별·전술 엔진을 **방어 에이전트**로 삼고, LLM 기반 **공격 에이전트**가 이를 무력화하려는 공방을 컨테이너 환경에서 자동으로 진행하는 시뮬레이터입니다.
+  highlights:
+    - "**3-컨테이너 구조:** `target_env`(표적 영상 서버) · `attack_agent` · `defense_agent`(Flask API)를 Docker Compose로 오케스트레이션"
+    - "**공격 에이전트:** 로컬 LLM(Llama 3)이 한정된 예산 안에서 물리 공격(정밀 미사일 타격, 드론 군집)과 사이버 공격(적대적/스텔스 노이즈, 리플레이·스푸핑, 블라인딩·블러링)을 조합해 전술 수립"
+    - "**방어 에이전트:** 노이즈 공격은 LLM이 제시한 강도로 Non-Local Means / 양방향 필터 정화, 리플레이·스푸핑은 타임스탬프 + 지각 해시(pHash) / 광학 흐름으로 탐지, 블라인딩·블러링은 백색 과포화 비율·라플라시안 분산으로 센서 마비 판정"
+    - "**전술 엔진 고도화:** 단일 프레임 임계값 판정 → 5-프레임 이동평균 + 위협·비위협 확률 차이 기반 판정으로 개선하여 순간적인 오탐에 의한 오발사를 억제"
+    - "**도메인 확장:** 클래스를 UGV(경장갑차) / UAV / 로켓 / UAV 클러터(조류)로 재구성하여 재학습"
+    - "**실시간 HUD 대시보드:** 라운드별 공격·방어 결과, 점수, 가용성(SLA) 시각화"
