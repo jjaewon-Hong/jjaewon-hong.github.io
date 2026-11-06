@@ -8,29 +8,28 @@
 $font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
 $font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-$content-width: 1080px;
-$sidebar-width: 240px;
+$container: 1080px;
+$nav-height: 64px;
 $thumb-width: 280px;
-$gap: 56px;
 
 $bp-tablet: 860px;
 $bp-phone: 480px;
 
 $radius-sm: 4px;
 $radius-md: 8px;
-$radius-lg: 10px;
+$radius-lg: 12px;
 
-// Light / dark color themes
 $themes: (
   light: (
-    bg: #ffffff,
-    surface: #f6f7f9,
+    bg: #f8f9fb,
+    surface: #ffffff,
     text: #1f2328,
     muted: #5f6873,
     border: #e3e6ea,
     accent: #1d5fbf,
     accent-soft: #e8f0fc,
-    code-bg: #eef1f4
+    code-bg: #eef1f4,
+    nav-bg: rgba(248, 249, 251, 0.85)
   ),
   dark: (
     bg: #0f1216,
@@ -40,7 +39,8 @@ $themes: (
     border: #2a3038,
     accent: #6ea8ff,
     accent-soft: #1a2638,
-    code-bg: #20262e
+    code-bg: #20262e,
+    nav-bg: rgba(15, 18, 22, 0.85)
   )
 );
 
@@ -54,24 +54,26 @@ $themes: (
 @mixin tablet { @media (max-width: $bp-tablet) { @content; } }
 @mixin phone  { @media (max-width: $bp-phone)  { @content; } }
 
-@mixin pill($bg, $fg) {
-  background: $bg;
-  color: $fg;
-  border-radius: 999px;
-}
-
 @function c($name) { @return var(--#{$name}); }
 
-// ---------- Base ----------
-:root { @include theme-vars(light); }
+// ---------- Themes ----------
+// Default follows the OS setting; the moon button overrides it with data-theme.
+:root { @include theme-vars(light); color-scheme: light; }
 
 @media (prefers-color-scheme: dark) {
-  :root { @include theme-vars(dark); }
+  :root:not([data-theme="light"]) { @include theme-vars(dark); color-scheme: dark; }
 }
 
+:root[data-theme="dark"] { @include theme-vars(dark); color-scheme: dark; }
+
+// ---------- Base ----------
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: $nav-height + 16px;
+}
 
 body {
   margin: 0;
@@ -97,125 +99,316 @@ code {
   border-radius: $radius-sm;
 }
 
+svg { display: block; }
+
 .muted { color: c(muted); }
 
-// ---------- Layout ----------
-.layout {
-  max-width: $content-width;
+.container {
+  max-width: $container;
   margin: 0 auto;
-  padding: $gap 24px;
-  display: grid;
-  grid-template-columns: $sidebar-width minmax(0, 1fr);
-  gap: $gap;
+  padding: 0 24px;
 
-  @include tablet {
-    grid-template-columns: 1fr;
-    gap: 36px;
-    padding: 36px 16px;
-  }
+  @include phone { padding: 0 16px; }
 }
 
-// ---------- Profile ----------
-.profile {
+// ---------- Top navigation ----------
+.nav {
   position: sticky;
-  top: $gap;
-  align-self: start;
-  text-align: center;
-
-  @include tablet { position: static; }
-
-  .avatar {
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin: 0 auto 18px;
-    display: block;
-  }
-
-  .avatar-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: c(accent-soft);
-    color: c(accent);
-    font-size: 56px;
-    font-weight: 700;
-  }
-
-  .name { font-size: 28px; margin: 0; line-height: 1.3; }
-  .name-en { margin: 2px 0 14px; color: c(muted); }
-  .affil { font-size: 14.5px; line-height: 1.6; margin: 0 0 18px; }
-
-  .links {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    align-items: center;
-
-    a {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14.5px;
-    }
-    svg { width: 17px; height: 17px; }
-  }
-}
-
-// ---------- Sections ----------
-section { margin-bottom: 52px; }
-
-h2 {
-  font-size: 22px;
-  margin: 0 0 16px;
-  padding-bottom: 8px;
+  top: 0;
+  z-index: 10;
+  background: c(nav-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-bottom: 1px solid c(border);
 }
 
-// About
-.interests {
+.nav-inner {
+  max-width: $container;
+  height: $nav-height;
+  margin: 0 auto;
+  padding: 0 24px;
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
   align-items: center;
-  margin-top: 14px;
+  justify-content: space-between;
+  gap: 12px;
 
-  &-label { font-weight: 600; margin-right: 4px; }
+  @include phone { padding: 0 16px; }
+}
 
-  .chip {
-    @include pill(c(accent-soft), c(accent));
-    font-size: 13.5px;
-    padding: 3px 10px;
+.brand {
+  color: c(text);
+  font-weight: 700;
+  font-size: 17px;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
+  span {
+    color: c(muted);
+    font-weight: 500;
+    font-size: 13px;
+    @include phone { display: none; }
+  }
+
+  &:hover { text-decoration: none; }
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  a {
+    color: c(text);
+    font-size: 15px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 999px;
+
+    &:hover {
+      background: c(accent-soft);
+      color: c(accent);
+      text-decoration: none;
+    }
   }
 }
 
-// News
-.news {
+.theme-toggle {
+  width: 40px;
+  height: 40px;
+  margin-left: 6px;
+  border-radius: 50%;
+  border: 1px solid c(border);
+  background: c(surface);
+  color: c(text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  svg { width: 19px; height: 19px; }
+  .icon-sun { display: none; }
+
+  &:hover { color: c(accent); border-color: c(accent); }
+}
+
+// Show the sun while dark mode is on
+@mixin show-sun {
+  .theme-toggle .icon-moon { display: none; }
+  .theme-toggle .icon-sun { display: block; }
+}
+:root[data-theme="dark"] { @include show-sun; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { @include show-sun; }
+}
+
+// ---------- Hero (About) ----------
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 48px;
+  padding: 88px 0 72px;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 48px 0 40px;
+  }
+}
+
+.hero-text { @include tablet { order: 2; } }
+
+.eyebrow {
+  margin: 0 0 14px;
+  color: c(accent);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-name {
+  margin: 0 0 18px;
+  font-size: 56px;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+
+  span {
+    display: block;
+    margin-top: 6px;
+    font-size: 22px;
+    font-weight: 500;
+    letter-spacing: 0;
+    color: c(muted);
+  }
+
+  @include phone { font-size: 42px; }
+}
+
+.hero-intro {
+  font-size: 18px;
+  color: c(muted);
+  p { margin: 0 0 8px; }
+}
+
+.icon-links {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.icon-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: $radius-lg;
+  border: 1px solid c(border);
+  background: c(surface);
+  color: c(text);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+
+  svg { width: 22px; height: 22px; }
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: c(accent);
+    color: c(accent);
+  }
+}
+
+.hero-photo {
+  justify-self: center;
+  padding: 18px;
+  border-radius: 50%;
+  background: c(accent-soft);
+
+  @include tablet { order: 1; }
+
+  img, .photo-placeholder {
+    display: block;
+    width: 340px;
+    height: 340px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid c(surface);
+
+    @include tablet { width: 220px; height: 220px; }
+  }
+
+  .photo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: c(surface);
+    color: c(accent);
+    font-size: 96px;
+    font-weight: 700;
+  }
+}
+
+// ---------- Section titles ----------
+section { margin-bottom: 64px; }
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 0 0 20px;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+
+  &::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: c(border);
+  }
+}
+
+// ---------- Project timeline ----------
+.year-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.year-tab {
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 6px 20px;
+  border-radius: 999px;
+  border: 1px solid c(border);
+  background: c(surface);
+  color: c(text);
+  cursor: pointer;
+
+  &.active {
+    background: c(accent);
+    border-color: c(accent);
+    color: c(bg);
+  }
+}
+
+.timeline {
   list-style: none;
-  padding: 0;
   margin: 0;
+  padding: 0;
+  position: relative;
+
+  // Vertical line
+  &::before {
+    content: "";
+    position: absolute;
+    left: 7px;
+    top: 14px;
+    bottom: 14px;
+    width: 2px;
+    background: c(border);
+  }
 
   li {
+    position: relative;
     display: grid;
-    grid-template-columns: 76px 1fr;
-    gap: 12px;
-    padding: 6px 0;
+    grid-template-columns: 90px 1fr;
+    gap: 16px;
+    padding: 10px 0 10px 36px;
+
+    // Dot
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 17px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: c(accent);
+      border: 2px solid c(bg);
+      box-shadow: 0 0 0 2px c(accent-soft);
+    }
+
+    &:last-child::before {
+      background: c(bg);
+      border: 2px solid c(accent);
+      box-shadow: none;
+    }
 
     @include phone { grid-template-columns: 1fr; gap: 0; }
   }
 
   .date {
     color: c(muted);
-    font-variant-numeric: tabular-nums;
     font-weight: 600;
+    font-variant-numeric: tabular-nums;
   }
 }
 
-// Roadmap
+// ---------- Roadmap ----------
 .roadmap {
   list-style: none;
   padding: 0;
@@ -236,7 +429,6 @@ h2 {
     flex-direction: column;
     gap: 4px;
 
-    // Arrow between cards
     & + li::before {
       content: "\2192";
       position: absolute;
@@ -261,7 +453,7 @@ h2 {
   .rm-date { font-size: 13px; color: c(muted); margin-top: auto; padding-top: 6px; }
 }
 
-// Projects
+// ---------- Project details ----------
 .project {
   display: grid;
   grid-template-columns: $thumb-width minmax(0, 1fr);
@@ -340,7 +532,7 @@ h2 {
   }
 }
 
-// Skills
+// ---------- Skills ----------
 .skills {
   display: grid;
   grid-template-columns: 130px 1fr;
@@ -357,10 +549,31 @@ h2 {
   }
 }
 
-// Footer
+// ---------- Contact ----------
+.contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  li {
+    display: grid;
+    grid-template-columns: 24px 70px 1fr;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .contact-icon svg { width: 20px; height: 20px; color: c(muted); }
+  .contact-label { font-weight: 600; }
+  a { overflow-wrap: anywhere; }
+}
+
+// ---------- Footer ----------
 footer {
   font-size: 13px;
   color: c(muted);
   border-top: 1px solid c(border);
-  padding-top: 16px;
+  padding: 16px 0 40px;
 }

@@ -1,4 +1,6 @@
 {% assign p = site.data.profile %}
+{% capture icon_email %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z M3 6l9 7 9-7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>{% endcapture %}
+{% capture icon_github %}<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>{% endcapture %}
 <!doctype html>
 <html lang="{{ site.lang }}">
 <head>
@@ -6,101 +8,163 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{{ site.title }}</title>
   <meta name="description" content="{{ site.description }}" />
+  <script>
+    // 저장된 테마를 화면이 그려지기 전에 적용 (깜빡임 방지)
+    try { var t = localStorage.getItem("theme"); if (t) document.documentElement.setAttribute("data-theme", t); } catch (e) {}
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
 </head>
 <body>
-<div class="layout">
 
-  <aside class="profile">
-    {% if p.photo != "" %}
-    <img class="avatar" src="{{ p.photo }}" alt="{{ p.name }}"
-         onerror="this.outerHTML='<div class=&quot;avatar avatar-placeholder&quot;>{{ p.initial }}</div>'" />
-    {% else %}
-    <div class="avatar avatar-placeholder">{{ p.initial }}</div>
-    {% endif %}
-    <h1 class="name">{{ p.name }}</h1>
-    <p class="name-en">{{ p.name_en }}</p>
-    <p class="affil">
-      {% for line in p.affiliation %}{{ line }}<br />{% endfor %}
-    </p>
-    <ul class="links">
+<!-- ───────── 상단 메뉴 ───────── -->
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="#about">{{ p.name }}<span>{{ p.name_en }}</span></a>
+    <nav class="nav-links">
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" type="button" aria-label="야간 모드 전환" title="야간 모드 전환">
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- ───────── About ───────── -->
+  <section id="about" class="hero">
+    <div class="hero-text">
+      <p class="eyebrow">{{ p.headline }}</p>
+      <h1 class="hero-name">{{ p.name }} <span>{{ p.name_en }}</span></h1>
+      <div class="hero-intro">{{ content }}</div>
+      <div class="icon-links">
+        {% for link in p.links %}
+        <a class="icon-btn" href="{{ link.url }}" target="_blank" rel="noopener" aria-label="{{ link.label }}" title="{{ link.label }}">
+          {% if link.icon == "email" %}{{ icon_email }}{% elsif link.icon == "github" %}{{ icon_github }}{% endif %}
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="hero-photo">
+      {% if p.photo != "" %}
+      <img src="{{ p.photo }}" alt="{{ p.name }}"
+           onerror="this.outerHTML='<div class=&quot;photo-placeholder&quot;>{{ p.initial }}</div>'" />
+      {% else %}
+      <div class="photo-placeholder">{{ p.initial }}</div>
+      {% endif %}
+    </div>
+  </section>
+
+  <!-- ───────── Project (연도별 타임라인) ───────── -->
+  <section id="project">
+    <h2 class="section-title">Project</h2>
+    {% assign years = "" | split: "" %}
+    {% for n in site.data.news %}{% assign y = n.date | slice: 0, 4 %}{% unless years contains y %}{% assign years = years | push: y %}{% endunless %}{% endfor %}
+    <div class="year-tabs" role="tablist">
+      {% for y in years %}<button type="button" class="year-tab{% if forloop.first %} active{% endif %}" data-year="{{ y }}">{{ y }}</button>{% endfor %}
+    </div>
+    {% for y in years %}
+    <ul class="timeline" data-year="{{ y }}"{% unless forloop.first %} hidden{% endunless %}>
+      {% for n in site.data.news %}{% assign ny = n.date | slice: 0, 4 %}{% if ny == y %}
+      <li><span class="date">{{ n.date }}</span><span class="text">{{ n.text | markdownify | remove: '<p>' | remove: '</p>' }}</span></li>
+      {% endif %}{% endfor %}
+    </ul>
+    {% endfor %}
+  </section>
+
+  <!-- ───────── 프로젝트 로드맵 ───────── -->
+  <section id="roadmap">
+    <h2 class="section-title">프로젝트 로드맵</h2>
+    <p class="muted">{{ site.roadmap_intro | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+    {% assign marks = "①,②,③,④,⑤,⑥,⑦,⑧,⑨" | split: "," %}
+    <ol class="roadmap">
+      {% for pr in site.data.projects %}
+      <li>
+        <span class="step">{{ marks[forloop.index0] }}</span>
+        <span class="rm-title">{{ pr.short }}</span>
+        <span class="rm-desc">{{ pr.roadmap }}</span>
+        <span class="rm-date">{{ pr.period }}</span>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <!-- ───────── 프로젝트 상세 ───────── -->
+  <section id="projects">
+    <h2 class="section-title">프로젝트 상세</h2>
+    {% for pr in site.data.projects %}
+    <article class="project">
+      <figure class="thumb">
+        <img src="{{ pr.image | relative_url }}" alt="{{ pr.image_alt }}" loading="lazy" />
+        {% if pr.caption %}<figcaption>{{ pr.caption }}</figcaption>{% endif %}
+      </figure>
+      <div class="body">
+        <h3>{{ pr.title }}</h3>
+        <p class="meta"><strong>{{ p.name }}</strong> · {{ pr.meta | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+        <p class="badges">{% for l in pr.links %}<a class="badge" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</p>
+        <p class="tags">{% for t in pr.tags %}<span>{{ t }}</span>{% endfor %}</p>
+        {{ pr.summary | markdownify }}
+        <ul>
+          {% for h in pr.highlights %}<li>{{ h | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
+        </ul>
+      </div>
+    </article>
+    {% endfor %}
+  </section>
+
+  <!-- ───────── 기술 스택 ───────── -->
+  <section id="skills">
+    <h2 class="section-title">기술 스택</h2>
+    <dl class="skills">
+      {% for s in p.skills %}<dt>{{ s.category }}</dt><dd>{{ s.items }}</dd>{% endfor %}
+    </dl>
+  </section>
+
+  <!-- ───────── Contact ───────── -->
+  <section id="contact">
+    <h2 class="section-title">Contact</h2>
+    <ul class="contact-list">
       {% for link in p.links %}
-      <li><a href="{{ link.url }}" target="_blank" rel="noopener">
-        {% if link.icon == "email" %}<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3z M3 6l9 7 9-7" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>
-        {% elsif link.icon == "github" %}<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.61.07-.61 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.08.63-1.33-2.22-.25-4.56-1.11-4.56-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.65 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.38.2 2.4.1 2.65.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.69-4.57 4.93.36.31.68.92.68 1.86v2.76c0 .27.18.58.69.48A10 10 0 0 0 12 2z"/></svg>
-        {% endif %}{{ link.label }}</a></li>
+      <li>
+        <span class="contact-icon">{% if link.icon == "email" %}{{ icon_email }}{% elsif link.icon == "github" %}{{ icon_github }}{% endif %}</span>
+        <span class="contact-label">{{ link.label }}</span>
+        <a href="{{ link.url }}" target="_blank" rel="noopener">{{ link.text }}</a>
+      </li>
       {% endfor %}
     </ul>
-  </aside>
+  </section>
 
-  <main>
-    <section id="about">
-      <h2>소개</h2>
-      {{ content }}
-      <div class="interests">
-        <span class="interests-label">관심 분야</span>
-        {% for item in p.interests %}<span class="chip">{{ item }}</span>{% endfor %}
-      </div>
-    </section>
+  <footer>© {{ site.time | date: "%Y" }} {{ p.name }} · 최종 수정 {{ site.last_updated }}</footer>
+</main>
 
-    <section id="news">
-      <h2>소식</h2>
-      <ul class="news">
-        {% for n in site.data.news %}
-        <li><span class="date">{{ n.date }}</span><span>{{ n.text | markdownify | remove: '<p>' | remove: '</p>' }}</span></li>
-        {% endfor %}
-      </ul>
-    </section>
+<script>
+  // 야간 모드 전환: 선택한 테마를 브라우저에 기억
+  (function () {
+    var root = document.documentElement;
+    var btn = document.querySelector(".theme-toggle");
+    function isDark() {
+      var t = root.getAttribute("data-theme");
+      if (t) return t === "dark";
+      return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+    }
+    btn.addEventListener("click", function () {
+      var next = isDark() ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try { localStorage.setItem("theme", next); } catch (e) {}
+    });
+  })();
 
-    <section id="roadmap">
-      <h2>프로젝트 로드맵</h2>
-      <p class="muted">{{ site.roadmap_intro | markdownify | remove: '<p>' | remove: '</p>' }}</p>
-      {% assign marks = "①,②,③,④,⑤,⑥,⑦,⑧,⑨" | split: "," %}
-      <ol class="roadmap">
-        {% for pr in site.data.projects %}
-        <li>
-          <span class="step">{{ marks[forloop.index0] }}</span>
-          <span class="rm-title">{{ pr.short }}</span>
-          <span class="rm-desc">{{ pr.roadmap }}</span>
-          <span class="rm-date">{{ pr.period }}</span>
-        </li>
-        {% endfor %}
-      </ol>
-    </section>
-
-    <section id="projects">
-      <h2>프로젝트</h2>
-      {% for pr in site.data.projects %}
-      <article class="project">
-        <figure class="thumb">
-          <img src="{{ pr.image | relative_url }}" alt="{{ pr.image_alt }}" loading="lazy" />
-          {% if pr.caption %}<figcaption>{{ pr.caption }}</figcaption>{% endif %}
-        </figure>
-        <div class="body">
-          <h3>{{ pr.title }}</h3>
-          <p class="meta"><strong>{{ p.name }}</strong> · {{ pr.meta | markdownify | remove: '<p>' | remove: '</p>' }}</p>
-          <p class="badges">{% for l in pr.links %}<a class="badge" href="{{ l.url }}" target="_blank" rel="noopener">{{ l.label }}</a>{% endfor %}</p>
-          <p class="tags">{% for t in pr.tags %}<span>{{ t }}</span>{% endfor %}</p>
-          {{ pr.summary | markdownify }}
-          <ul>
-            {% for h in pr.highlights %}<li>{{ h | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
-          </ul>
-        </div>
-      </article>
-      {% endfor %}
-    </section>
-
-    <section id="skills">
-      <h2>기술 스택</h2>
-      <dl class="skills">
-        {% for s in p.skills %}<dt>{{ s.category }}</dt><dd>{{ s.items }}</dd>{% endfor %}
-      </dl>
-    </section>
-
-    <footer>© {{ site.time | date: "%Y" }} {{ p.name }} · 최종 수정 {{ site.last_updated }}</footer>
-  </main>
-
-</div>
+  // 연도 버튼: 선택한 연도의 항목만 표시
+  document.querySelectorAll(".year-tab").forEach(function (tab) {
+    tab.addEventListener("click", function () {
+      var y = tab.getAttribute("data-year");
+      document.querySelectorAll(".year-tab").forEach(function (t) { t.classList.toggle("active", t === tab); });
+      document.querySelectorAll(".timeline").forEach(function (list) { list.hidden = list.getAttribute("data-year") !== y; });
+    });
+  });
+</script>
 </body>
 </html>
