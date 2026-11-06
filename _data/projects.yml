@@ -94,7 +94,7 @@
     role: AI(LLM 파이프라인) 담당 · 5인 팀
     image: /assets/img/soa_screen.png
     image_alt: Soft On-boarding Agent 화면 설계안 (4-Way View)
-    caption: 화면 설계안 — 저장소를 Functional · Data · Interface · Process & Flow 4가지 관점으로 시각화
+    caption: 화면 설계안. 저장소를 Functional · Data · Interface · Process & Flow 4가지 관점으로 시각화
     links:
     - label: LLM 파이프라인 코드
       url: https://github.com/jjaewon-Hong/Soft-Onboarding-Agent-LLM
@@ -110,8 +110,8 @@
     summary: 신입과 팀장급 사이의 소통·정보 격차로 생기는 **온보딩 비효율**을 줄이기 위해, 팀원들의 GitHub 데이터를 분석해 신규 구성원에게 맞춤 온보딩 정보를 제공하는 AI Agent를 개발했습니다.
     highlights:
     - '**진행:** 바이브코딩 교육 4회(9시~18시) 이수 후 AI Agent 개발 (DB 구축 · 서비스 배포)'
-    - '**팀 구성:** 컴퓨터공학과 동기 5인 — 기능별 풀스택 4명, AI 1명'
-    - '**담당 (AI):** 모든 기능이 거치는 LLM 파이프라인 구축 — GitHub API로 저장소 파일·커밋을 수집하고, Gemini(`gemini-3.5-flash`)로 파일 분류 및 기능·인터페이스·데이터·프로세스 뷰 분석 결과를 생성해 각 기능 담당자에게 제공'
+    - '**팀 구성:** 컴퓨터공학과 동기 5인 (기능별 풀스택 4명, AI 1명)'
+    - '**담당 (AI):** 모든 기능이 거치는 LLM 파이프라인 구축. GitHub API로 저장소 파일·커밋을 수집하고, Gemini(`gemini-3.5-flash`)로 파일 분류 및 기능·인터페이스·데이터·프로세스 뷰 분석 결과를 생성해 각 기능 담당자에게 제공'
     - '**협업 방식:** 프론트엔드/백엔드와의 충돌을 막기 위해 LLM 파이프라인을 별도 저장소로 분리해 개발'
     lesson: 기능 담당자마다 원하는 정보가 달라 하나하나 세밀하게 맞췄지만, 발표 자료가 기술 설명에만 치우쳐 **서비스가 왜 필요한지**에 대한 설득이 부족했습니다. 본선 진출에 실패했습니다.
 - id: square
