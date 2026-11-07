@@ -89,17 +89,17 @@
   intro: GitHub 데이터를 분석해 신규 입사자의 회사 적응을 돕는 AI Agent<br>(LLM 파이프라인 담당)
   period: '2026.05'
   event: Google AI Agent Challenge
-  cover: /assets/img/soa_data.jpg
+  cover: /assets/img/soa_login.jpg
   projects:
   - title: 'Soft On-boarding Agent: 신규 입사자 온보딩 AI Agent'
     meta: '*Google AI Agent Challenge* · 2026.05'
     role: AI(LLM 파이프라인) 담당 · 5인 팀
-    image: /assets/img/soa_data.jpg
-    image_alt: Soft On-boarding Agent 화면 설계안 (Data View)
+    image: /assets/img/soa_login.jpg
+    image_alt: Soft On-boarding Agent 로그인 화면
     gallery:
-    - src: /assets/img/soa_screen.png
-      alt: Soft On-boarding Agent 화면 설계안 (Functional View)
-    caption: 화면 설계안 (Data · Functional View). 저장소를 Functional · Data · Interface · Process & Flow 4가지 관점으로 시각화
+    - src: /assets/img/soa_dataview.jpg
+      alt: Soft On-boarding Agent Data View 화면
+    caption: 실행 화면 (로그인 · Data View). Data View의 테이블은 화면 확인용 예시 데이터
     links:
     - label: LLM 파이프라인 코드
       url: https://github.com/jjaewon-Hong/Soft-Onboarding-Agent-LLM
