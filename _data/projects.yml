@@ -8,7 +8,7 @@
 - id: rg
   title: Reasoning Guard 시리즈
   flow: Reasoning Guard → Reasoning-Guard-System → RG-Agent
-  intro: 오발사 방지형 표적 판별 모델을 C++ 전술 엔진과 LLM 공방 에이전트까지 단계적으로 확장한 연속 프로젝트
+  intro: PyTorch 및 ResNet-18로 학습한 오발사 방지형 표적 판별 모델을 C++ 전술 엔진과 LLM 공방 에이전트로 확장한 연속 프로젝트
   period: 2026.03 – 2026.07
   cover: /assets/img/rg_agent_dashboard.jpg
   org: LIG D&A
