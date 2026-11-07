@@ -86,7 +86,7 @@
     - '**실시간 HUD 대시보드:** 라운드별 공격·방어 결과, 점수, 가용성(SLA) 시각화'
 - id: soa
   title: Soft On-boarding Agent
-  intro: GitHub 데이터를 분석해 신규 입사자의 회사 적응을 돕는 AI Agent (LLM 파이프라인 담당)
+  intro: GitHub 데이터를 분석해 신규 입사자의 회사 적응을 돕는 AI Agent<br>(LLM 파이프라인 담당)
   period: '2026.05'
   event: Google AI Agent Challenge
   cover: /assets/img/soa_screen.png
