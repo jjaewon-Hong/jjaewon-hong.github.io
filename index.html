@@ -86,7 +86,7 @@
         <span class="box-cover{% if box.cover_fit == 'contain' %} contain{% endif %}"><img src="{{ box.cover | relative_url }}" alt="" loading="lazy" /></span>
         <span class="box-body">
           <span class="box-top">
-            <span class="box-period">{{ box.period }}</span>
+            <span class="box-period">{{ box.period }}{% if box.event %}<span class="box-event"> · {{ box.event }}</span>{% endif %}</span>
             {% if box.badge %}<span class="box-badge">{{ box.badge }}</span>{% endif %}
             {% if box.projects.size > 1 %}<span class="box-count">프로젝트 {{ box.projects.size }}개</span>{% endif %}
             {% if box.org %}<span class="box-org">{{ box.org }}</span>{% endif %}

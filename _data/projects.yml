@@ -1,5 +1,5 @@
 # 프로젝트 상자 목록 (위에서부터 표시)
-# - 상자: id, title, intro(한 줄 소개), period, cover(상자 사진), cover_fit(선택: contain = 사진 전체 보이기), badge(선택), org(선택: 연두색 기관 표시), flow(선택)
+# - 상자: id, title, intro(한 줄 소개), period, cover(상자 사진), cover_fit(선택: contain = 사진 전체 보이기), badge(선택), org(선택: 연두색 기관 표시), event(선택: 날짜 옆 대회명), flow(선택)
 # - projects: 상자를 누르면 열리는 상세 카드들
 #   short / roadmap / period 가 있으면 상세 창 위쪽에 진행 흐름 카드로 표시됩니다.
 #   award, role, gallery, lesson(실패 요인)은 선택 항목입니다.
@@ -88,6 +88,7 @@
   title: Soft On-boarding Agent
   intro: GitHub 데이터를 분석해 신규 입사자의 회사 적응을 돕는 AI Agent (LLM 파이프라인 담당)
   period: '2026.05'
+  event: Google AI Agent Challenge
   cover: /assets/img/soa_screen.png
   projects:
   - title: 'Soft On-boarding Agent: 신규 입사자 온보딩 AI Agent'
@@ -119,6 +120,7 @@
   title: Square
   intro: 중고거래를 안전하게 마무리하는 무인 AI 사물함 아이디어
   period: '2025.10'
+  event: AI 활용 충북 미래 디자인
   cover: /assets/img/square_cover.jpg
   projects:
   - title: 'Square: 중고거래 무인 AI 사물함 아이디어'
@@ -146,6 +148,7 @@
   title: Smart Sip
   intro: 센서와 AI로 음주 상태를 알려 주는 디지털 음주 가이드 컵
   period: '2025.07'
+  event: 2025 AI와 함께하는 스마트 라이프 캠프
   cover: /assets/img/smartsip_features.jpg
   cover_fit: contain
   badge: 🏆 금상
