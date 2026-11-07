@@ -1,7 +1,8 @@
 # Timeline: 최신 항목을 맨 위에 추가하세요. 연도 버튼은 date 앞 4자리로 자동 생성됩니다.
-# text 에는 **굵게** 같은 Markdown을 쓸 수 있습니다. badge 를 넣으면 옆에 수상 표시가 붙습니다.
+# text 에는 **굵게** 같은 Markdown을 쓸 수 있습니다. badge 는 노란 수상 표시, org 는 연두색 기관 표시로 붙습니다.
 - date: "2026.07"
-  text: "**RG-Agent** 공개 ▶ LLM 공격/방어 에이전트 기반 사이버-물리 공방 시뮬레이션 (LIG D&A 주최 DAH-2026)"
+  text: "**RG-Agent** 공개 ▶ LLM 공격/방어 에이전트 기반 사이버-물리 공방 시뮬레이션"
+  org: LIG D&A
 - date: "2026.06"
   text: "**Reasoning-Guard-System** 완성 ▶ ONNX + C++ 전술 엔진의 웹(WASM)·네이티브 통합"
 - date: "2026.05"
@@ -14,6 +15,7 @@
   text: "**AI 활용 충북 미래 디자인** 공모전 참가 ▶ 중고거래 무인 AI 사물함 아이디어 제시"
 - date: "2025.07"
   text: "**AI와 함께하는 스마트 라이프 캠프** 금상 수상 ▶ Smart Sip (팀장·최종 발표)"
+  badge: "🏆 금상"
 - date: "2024.07"
   text: "**육군 제37보병사단** 만기 전역"
 - date: "2023.03"
