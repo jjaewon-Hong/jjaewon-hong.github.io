@@ -399,6 +399,20 @@ section { margin-bottom: 64px; }
   vertical-align: 1px;
 }
 
+// Items slide in one after another when a year is shown
+.timeline:not([hidden]) li {
+  animation: timeline-in 0.35s ease both;
+
+  @for $i from 1 through 8 {
+    &:nth-child(#{$i}) { animation-delay: #{($i - 1) * 45}ms; }
+  }
+}
+
+@keyframes timeline-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: none; }
+}
+
 .timeline {
   list-style: none;
   margin: 0;
@@ -485,6 +499,9 @@ section { margin-bottom: 64px; }
   }
 
   &:hover .box-more { text-decoration: underline; }
+
+  &:hover .box-cover img,
+  &:focus-visible .box-cover img { transform: scale(1.04); }
 }
 
 .box-cover {
@@ -503,6 +520,7 @@ section { margin-bottom: 64px; }
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.45s ease;
   }
 
   // Tall drawings: show the whole image on white
@@ -563,7 +581,24 @@ section { margin-bottom: 64px; }
   color: c(text);
   overflow: auto;
 
-  &::backdrop { background: rgba(10, 12, 16, 0.55); }
+  &::backdrop {
+    background: rgba(10, 12, 16, 0.5);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+  }
+
+  &[open] { animation: dialog-in 0.22s ease-out; }
+  &[open]::backdrop { animation: fade-in 0.22s ease-out; }
+}
+
+@keyframes dialog-in {
+  from { opacity: 0; transform: translateY(14px) scale(0.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 body:has(.project-dialog[open]) { overflow: hidden; }
@@ -828,4 +863,20 @@ footer {
   color: c(muted);
   border-top: 1px solid c(border);
   padding: 16px 0 40px;
+}
+
+// ---------- Motion ----------
+// Smooth color change while switching light / dark
+.theme-anim,
+.theme-anim *,
+.theme-anim *::before,
+.theme-anim *::after {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, fill 0.3s ease !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline:not([hidden]) li,
+  .project-dialog[open],
+  .project-dialog[open]::backdrop { animation: none; }
+  .box-cover img { transition: none; }
 }
