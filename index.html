@@ -194,7 +194,7 @@
       // 색이 부드럽게 바뀌도록 전환하는 동안만 애니메이션 적용
       root.classList.add("theme-anim");
       clearTimeout(root._themeTimer);
-      root._themeTimer = setTimeout(function () { root.classList.remove("theme-anim"); }, 400);
+      root._themeTimer = setTimeout(function () { root.classList.remove("theme-anim"); }, 750);
       root.setAttribute("data-theme", next);
       try { localStorage.setItem("theme", next); } catch (e) {}
     });
