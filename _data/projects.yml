@@ -5,6 +5,40 @@
 #   award, role, gallery, lesson(보완 사항)은 선택 항목입니다.
 #   summary, highlights, lesson 에는 **굵게**, `코드` 같은 Markdown을 쓸 수 있습니다.
 
+- id: ugv
+  title: UGV Patrol Planner
+  intro: 고도가 있는 2.5D 지형에서 무인 지상 차량(UGV)의 순찰 경로를 계획하는 ROS 2 제어기
+  period: 2026.10 – 2026.11
+  cover: /assets/img/ugv_rviz.jpg
+  projects:
+  - title: 'UGV Patrol Planner: 2.5D 지형 기반 UGV 순찰 경로 계획 제어기'
+    meta: '*개인 프로젝트 (1인 개발)* · 2026.10 – 2026.11'
+    image: /assets/img/ugv_rviz.jpg
+    image_alt: RViz2에서 본 캠퍼스 지형과 UGV 순찰 경로
+    gallery:
+    - src: /assets/img/ugv_2d.jpg
+      alt: 같은 순간의 2D 화면
+    caption: 영남대 경산캠퍼스 1 km × 1 km 순찰 장면 (RViz2 · 2D 화면). 빨강 건물, 초록 나무, 하늘색 물, 파란 선이 경로
+    links:
+    - label: 코드
+      url: https://github.com/jjaewon-Hong/ugv_patrol_planner
+    - label: 웹 데모
+      url: https://jjaewon-hong.github.io/ugv_patrol_planner/
+    tags:
+    - ROS 2 Jazzy
+    - Python
+    - C++17
+    - PyTorch (DeepLabV3)
+    - WebAssembly
+    - GitHub Actions
+    summary: 실제 차량 없이 시뮬레이션으로 검증하는 **UGV 순찰 경로 계획 제어기**입니다. 영남대 경산캠퍼스 항공사진에서 딥러닝으로 찾은 장애물과 실제 고도 자료로 만든 지도 위에서 순찰합니다.
+    highlights:
+    - '**지형 경로 계획:** A\*로 장애물과 등판 한계(캠퍼스 15°)를 넘는 경사를 피하고, 경사가 클수록 비용을 높인 최소 비용 경로 생성'
+    - '**임무 관리:** 가장 오래 방문하지 않은 지점부터 순찰하고, 새 장애물이 경로를 막으면 재계획(실측 Python 48 ms, C++ 8 ms), 기지 복귀 에너지가 부족해지기 전에 복귀'
+    - '**캠퍼스 지도 제작:** 국토지리정보원 정사영상에서 LoveDA로 학습한 DeepLabV3로 장애물을 인식하고, Copernicus GLO-30 고도를 10 m 격자로 보간. 직접 라벨링한 정답 기준 건물+나무 IoU 0.63'
+    - '**C++ 포팅:** 핵심 유닛 5개와 제어기 노드를 C++17(rclcpp)로 옮겨 Python과 600개 경로가 칸 단위로 같음을 확인, A\*는 약 20배 빠름'
+    - '**웹 데모:** C++ 핵심(`ugv_core`)을 WebAssembly로 빌드해 브라우저에서 깃발·장애물을 직접 놓으며 순찰 실행'
+    - '**검증:** 단위 시험 Python 82개 · C++(GoogleTest) 36개, 실제 ROS 2 실행 시나리오 5종을 GitHub Actions로 push마다 시험'
 - id: rg
   title: Reasoning Guard 시리즈
   flow: Reasoning Guard → Reasoning-Guard-System → RG-Agent

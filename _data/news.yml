@@ -1,5 +1,7 @@
 # Timeline: 최신 항목을 맨 위에 추가하세요. 연도 버튼은 date 앞 4자리로 자동 생성됩니다.
 # text 에는 **굵게** 같은 Markdown을 쓸 수 있습니다. badge 는 노란 수상 표시, org 는 연두색 기관 표시, role 은 파란 역할 표시로 붙습니다.
+- date: "2026.10"
+  text: "**UGV Patrol Planner** 개발 ▶ 2.5D 지형 기반 UGV 순찰 경로 계획 제어기 (ROS 2 · C++)"
 - date: "2026.07"
   text: "**RG-Agent** 공개 ▶ LLM 공격/방어 에이전트 기반 사이버-물리 공방 시뮬레이션"
   org: LIG D&A
