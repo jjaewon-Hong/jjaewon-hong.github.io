@@ -365,6 +365,52 @@ section { margin-bottom: 64px; }
   }
 }
 
+// Timeline / Project share one title row; the title buttons switch the panel
+.section-tabs { gap: 20px; }
+
+.section-tab {
+  font: inherit;
+  font-weight: 700;
+  padding: 0 0 4px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: none;
+  color: c(muted);
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+
+  &:hover { color: c(text); }
+
+  &.active {
+    color: c(text);
+    border-bottom-color: c(accent);
+  }
+}
+
+// When a title button is pressed, the panel's rows drop in one after another
+// (.entering is set by the script for a moment, so switching years keeps its own speed)
+.section-panel.entering {
+  .year-tabs,
+  .project-box { animation: panel-in 0.7s ease backwards; }
+
+  // Timeline rows follow the year buttons
+  .timeline li {
+    animation-duration: 0.7s;
+    @for $i from 1 through 8 {
+      &:nth-child(#{$i}) { animation-delay: #{$i * 130}ms; }
+    }
+  }
+
+  @for $i from 1 through 8 {
+    .project-box:nth-child(#{$i}) { animation-delay: #{($i - 1) * 150}ms; }
+  }
+}
+
+// "from" only, so hover effects still apply once the animation ends
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(-14px); }
+}
+
 // ---------- Project timeline ----------
 .year-tabs {
   display: flex;
@@ -876,6 +922,8 @@ footer {
 
 @media (prefers-reduced-motion: reduce) {
   .timeline:not([hidden]) li,
+  .section-panel.entering .year-tabs,
+  .section-panel.entering .project-box,
   .project-dialog[open],
   .project-dialog[open]::backdrop { animation: none; }
   .box-cover img { transition: none; }

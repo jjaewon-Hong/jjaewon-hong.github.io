@@ -60,9 +60,15 @@
     </div>
   </section>
 
-  <!-- ───────── Timeline (연도별) ───────── -->
-  <section id="timeline">
-    <h2 class="section-title">Timeline</h2>
+  <!-- ───────── Timeline / Project (제목 버튼으로 전환) ───────── -->
+  <section id="work">
+    <div class="section-title section-tabs" role="tablist">
+      <button type="button" class="section-tab active" role="tab" id="tab-timeline" aria-selected="true" aria-controls="timeline" data-panel="timeline">Timeline</button>
+      <button type="button" class="section-tab" role="tab" id="tab-projects" aria-selected="false" aria-controls="projects" data-panel="projects">Project</button>
+    </div>
+
+    <!-- Timeline (연도별) -->
+    <div id="timeline" class="section-panel" role="tabpanel" aria-labelledby="tab-timeline">
     {% assign years = "" | split: "" %}
     {% for n in site.data.news %}{% assign y = n.date | slice: 0, 4 %}{% unless years contains y %}{% assign years = years | push: y %}{% endunless %}{% endfor %}
     <div class="year-tabs" role="tablist">
@@ -75,11 +81,10 @@
       {% endif %}{% endfor %}
     </ul>
     {% endfor %}
-  </section>
+    </div>
 
-  <!-- ───────── Project (상자를 누르면 상세 창이 열림) ───────── -->
-  <section id="projects">
-    <h2 class="section-title">Project</h2>
+    <!-- Project (상자를 누르면 상세 창이 열림) -->
+    <div id="projects" class="section-panel" role="tabpanel" aria-labelledby="tab-projects" hidden>
     <div class="box-grid">
       {% for box in site.data.projects %}
       <button type="button" class="project-box" data-open="dlg-{{ box.id }}" aria-haspopup="dialog">
@@ -160,6 +165,7 @@
       </div>
     </dialog>
     {% endfor %}
+    </div>
   </section>
 
   <!-- ───────── Contact ───────── -->
@@ -212,7 +218,35 @@
     dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
   });
 
-  // 연도 버튼: 선택한 연도의 항목만 표시
+  // 제목 버튼(Timeline / Project): 선택한 쪽 내용만 표시
+  (function () {
+    var tabs = document.querySelectorAll(".section-tab");
+    function show(id, animate) {
+      tabs.forEach(function (t) {
+        var on = t.getAttribute("data-panel") === id;
+        t.classList.toggle("active", on);
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        var panel = document.getElementById(t.getAttribute("data-panel"));
+        panel.hidden = !on;
+        panel.classList.remove("entering");
+        clearTimeout(panel._enterTimer);
+        // 버튼을 눌러 연 쪽은 내용이 위에서부터 차례로 나타남
+        if (on && animate) {
+          panel.classList.add("entering");
+          panel._enterTimer = setTimeout(function () { panel.classList.remove("entering"); }, 2500);
+        }
+      });
+    }
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        if (!t.classList.contains("active")) show(t.getAttribute("data-panel"), true);
+      });
+    });
+    // #projects 처럼 버튼에 해당하는 주소로 들어오면 그쪽을 먼저 표시
+    var target = location.hash.slice(1);
+    tabs.forEach(function (t) { if (t.getAttribute("data-panel") === target) show(target); });
+  })();
+
   document.querySelectorAll(".year-tab").forEach(function (tab) {
     tab.addEventListener("click", function () {
       var y = tab.getAttribute("data-year");
