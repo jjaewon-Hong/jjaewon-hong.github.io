@@ -713,13 +713,7 @@ body:has(.project-dialog[open]) { overflow: hidden; }
 
   li {
     position: relative;
-    background: c(surface);
-    border: 1px solid c(border);
-    border-radius: $radius-lg;
-    padding: 16px;
     display: flex;
-    flex-direction: column;
-    gap: 4px;
 
     & + li::before {
       content: "\2192";
@@ -739,6 +733,47 @@ body:has(.project-dialog[open]) { overflow: hidden; }
     }
   }
 
+  // Each step is a button: pressing it shows that step's details below
+  .rm-card {
+    flex: 1;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+    background: c(surface);
+    border: 1px solid c(border);
+    border-radius: $radius-lg;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-2px);
+      border-color: c(accent);
+      outline: none;
+    }
+    &:hover .rm-more { text-decoration: underline; }
+
+    &.active {
+      border-color: c(accent);
+      background: c(accent-soft);
+    }
+  }
+
+  .rm-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .rm-more { font-size: 14px; font-weight: 600; color: c(accent); }
+  .rm-now { font-size: 13px; font-weight: 600; color: c(muted); display: none; }
+  .rm-card.active .rm-more { display: none; }
+  .rm-card.active .rm-now { display: inline; }
+
   .step { color: c(accent); font-weight: 700; font-size: 18px; }
   .rm-title { font-weight: 700; }
   .rm-desc { font-size: 14px; color: c(muted); line-height: 1.55; }
@@ -754,6 +789,11 @@ body:has(.project-dialog[open]) { overflow: hidden; }
   border-bottom: 1px solid c(border);
 
   &:last-child { border-bottom: none; }
+
+  // One step at a time (chosen with the roadmap buttons)
+  &[hidden] { display: none; }
+  &.step-panel { border-bottom: none; scroll-margin-top: 96px; }
+  &.step-panel:not([hidden]) { animation: panel-in 0.45s ease backwards; }
 
   @include tablet { grid-template-columns: 1fr; gap: 16px; }
 
@@ -934,6 +974,7 @@ footer {
   .timeline:not([hidden]) li,
   .section-panel.entering .year-tabs,
   .section-panel.entering .project-box,
+  .project.step-panel:not([hidden]),
   .project-dialog[open],
   .project-dialog[open]::backdrop { animation: none; }
   .box-cover img { transition: none; }

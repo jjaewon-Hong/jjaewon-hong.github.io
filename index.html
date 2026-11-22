@@ -121,17 +121,23 @@
         <ol class="roadmap">
           {% for pr in steps %}
           <li>
-            <span class="step">{{ marks[forloop.index0] }}</span>
-            <span class="rm-title">{{ pr.short }}</span>
-            <span class="rm-desc">{{ pr.roadmap }}</span>
-            <span class="rm-date">{{ pr.period }}</span>
+            <button type="button" class="rm-card{% if forloop.first %} active{% endif %}" data-step="{{ forloop.index0 }}" aria-pressed="{% if forloop.first %}true{% else %}false{% endif %}">
+              <span class="rm-top">
+                <span class="step">{{ marks[forloop.index0] }}</span>
+                <span class="rm-more">자세히 보기 &rarr;</span>
+                <span class="rm-now">보는 중</span>
+              </span>
+              <span class="rm-title">{{ pr.short }}</span>
+              <span class="rm-desc">{{ pr.roadmap }}</span>
+              <span class="rm-date">{{ pr.period }}</span>
+            </button>
           </li>
           {% endfor %}
         </ol>
         {% endif %}
 
         {% for pr in box.projects %}
-        <article class="project">
+        <article class="project{% if steps.size > 1 %} step-panel{% endif %}"{% if steps.size > 1 %} data-step="{{ forloop.index0 }}"{% unless forloop.first %} hidden{% endunless %}{% endif %}>
           <figure class="thumb">
             <img src="{{ pr.image | relative_url }}" alt="{{ pr.image_alt }}" loading="lazy" />
             {% if pr.gallery %}
@@ -247,6 +253,28 @@
     tabs.forEach(function (t) { if (t.getAttribute("data-panel") === target) show(target); });
   })();
 
+  // 진행 흐름 카드(①②③): 누른 단계의 상세 내용만 표시
+  document.querySelectorAll(".project-dialog").forEach(function (dlg) {
+    var cards = dlg.querySelectorAll(".rm-card");
+    cards.forEach(function (card) {
+      card.addEventListener("click", function () {
+        var step = card.getAttribute("data-step");
+        cards.forEach(function (c) {
+          c.classList.toggle("active", c === card);
+          c.setAttribute("aria-pressed", c === card ? "true" : "false");
+        });
+        dlg.querySelectorAll(".step-panel").forEach(function (panel) {
+          panel.hidden = panel.getAttribute("data-step") !== step;
+          // 좁은 화면에서는 카드가 세로로 쌓이므로 상세 내용 위치로 이동
+          if (!panel.hidden && window.matchMedia("(max-width: 860px)").matches) {
+            panel.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        });
+      });
+    });
+  });
+
+  // 연도 버튼: 선택한 연도의 항목만 표시
   document.querySelectorAll(".year-tab").forEach(function (tab) {
     tab.addEventListener("click", function () {
       var y = tab.getAttribute("data-year");
