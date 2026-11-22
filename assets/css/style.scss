@@ -979,3 +979,13 @@ footer {
   .project-dialog[open]::backdrop { animation: none; }
   .box-cover img { transition: none; }
 }
+
+// 세로로 쌓는 갤러리: 사진을 자르거나 줄이지 않고 대표 사진과 같은 폭으로 표시
+.gallery.stack {
+  grid-template-columns: 1fr;
+
+  img {
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+}

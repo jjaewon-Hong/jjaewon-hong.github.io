@@ -141,7 +141,7 @@
           <figure class="thumb">
             <img src="{{ pr.image | relative_url }}" alt="{{ pr.image_alt }}" loading="lazy" />
             {% if pr.gallery %}
-            <div class="gallery">
+            <div class="gallery{% if pr.gallery_layout == 'stack' %} stack{% endif %}">
               {% for g in pr.gallery %}<img src="{{ g.src | relative_url }}" alt="{{ g.alt }}" loading="lazy" />{% endfor %}
             </div>
             {% endif %}

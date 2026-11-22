@@ -77,6 +77,7 @@
     meta: '*OSS설계 최종 프로젝트* · 2026.06'
     image: /assets/img/rgs_demo.jpg
     image_alt: 'Reasoning-Guard-System 웹 시뮬레이션: 조류를 비위협으로 판단해 사격을 억제하는 화면'
+    gallery_layout: stack
     gallery:
     - src: /assets/img/rgs_safe.jpg
       alt: '조류를 비위협으로 판단해 SAFE(대기)로 판정한 화면'
@@ -105,7 +106,10 @@
     meta: '*LIG D&A 주최 DAH-2026* · 2026.07'
     image: /assets/img/rg_agent_dashboard.jpg
     image_alt: RG-Agent 실시간 공방 대시보드
+    gallery_layout: stack
     gallery:
+    - src: /assets/img/rg_agent_round.jpg
+      alt: '스텔스 노이즈 공격에 대한 방어 라운드 화면'
     - src: /assets/img/rg_agent_result.jpg
       alt: '공격측 예산 소진으로 방어 에이전트가 승리한 결과 화면'
     links:
