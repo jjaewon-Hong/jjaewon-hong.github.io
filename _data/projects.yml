@@ -77,7 +77,12 @@
     meta: '*OSS설계 최종 프로젝트* · 2026.06'
     image: /assets/img/rgs_demo.jpg
     image_alt: 'Reasoning-Guard-System 웹 시뮬레이션: 조류를 비위협으로 판단해 사격을 억제하는 화면'
-    caption: 조류를 비위협(ETC)으로 판단해 사격을 억제하는 장면
+    gallery:
+    - src: /assets/img/rgs_safe.jpg
+      alt: '조류를 비위협으로 판단해 SAFE(대기)로 판정한 화면'
+    - src: /assets/img/rgs_danger.jpg
+      alt: '드론을 위협으로 판단해 DANGER(교전)로 판정한 화면'
+    caption: 'CAUTION(노랑): 조류의 비위협 확률이 높아 사격 억제 · SAFE(초록): 조류를 비위협으로 판단해 대기 · DANGER(빨강): 드론을 위협으로 판단해 교전'
     links:
     - label: 코드
       url: https://github.com/jjaewon-Hong/Reasoning-Guard-System
@@ -100,6 +105,9 @@
     meta: '*LIG D&A 주최 DAH-2026* · 2026.07'
     image: /assets/img/rg_agent_dashboard.jpg
     image_alt: RG-Agent 실시간 공방 대시보드
+    gallery:
+    - src: /assets/img/rg_agent_result.jpg
+      alt: '공격측 예산 소진으로 방어 에이전트가 승리한 결과 화면'
     links:
     - label: 코드
       url: https://github.com/jjaewon-Hong/RG-Agent
