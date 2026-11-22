@@ -83,7 +83,7 @@
       alt: '조류를 비위협으로 판단해 SAFE(대기)로 판정한 화면'
     - src: /assets/img/rgs_danger.jpg
       alt: '드론을 위협으로 판단해 DANGER(교전)로 판정한 화면'
-    caption: 'CAUTION(노랑): 조류의 비위협 확률이 높아 사격 억제 · SAFE(초록): 조류를 비위협으로 판단해 대기 · DANGER(빨강): 드론을 위협으로 판단해 교전'
+    caption: 'CAUTION(노랑): 조류의 비위협 확률이 높아 사격 억제<br>SAFE(초록): 조류를 비위협으로 판단해 대기<br>DANGER(빨강): 드론을 위협으로 판단해 교전'
     links:
     - label: 코드
       url: https://github.com/jjaewon-Hong/Reasoning-Guard-System
