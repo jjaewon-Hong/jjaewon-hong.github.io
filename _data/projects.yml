@@ -13,12 +13,13 @@
   projects:
   - title: 'UGV Patrol Planner: 2.5D 지형 기반 UGV 순찰 경로 계획 제어기'
     meta: '*개인 프로젝트 (1인 개발)* · 2026.10 – 2026.11'
-    image: /assets/img/ugv_rviz.jpg
-    image_alt: RViz2에서 본 캠퍼스 지형과 UGV 순찰 경로
+    image: /assets/img/ugv_2d.jpg
+    image_alt: 캠퍼스 지형과 UGV 순찰 경로를 위에서 본 2D 화면
+    gallery_layout: stack
     gallery:
-    - src: /assets/img/ugv_2d.jpg
-      alt: 같은 순간의 2D 화면
-    caption: 영남대 경산캠퍼스 1 km × 1 km 순찰 장면 (RViz2 · 2D 화면). 빨강 건물, 초록 나무, 하늘색 물, 파란 선이 경로
+    - src: /assets/img/ugv_web3d.jpg
+      alt: '웹 데모: 브라우저에서 실행한 3D 지형 위 순찰 화면'
+    caption: '영남대 경산캠퍼스 1 km × 1 km 순찰 장면<br>위: 2D 화면, 아래: 웹 데모 3D 화면 (WebAssembly)<br>빨강 건물, 초록 나무, 하늘색 물, 파란 선이 경로'
     links:
     - label: 코드
       url: https://github.com/jjaewon-Hong/ugv_patrol_planner
