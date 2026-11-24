@@ -9,7 +9,7 @@
   title: UGV Patrol Planner
   intro: 고도가 있는 2.5D 지형에서 무인 지상 차량(UGV)의 순찰 경로를 계획하는 ROS 2 제어기
   period: 2026.10 – 2026.11
-  cover: /assets/img/ugv_rviz.jpg
+  cover: /assets/img/ugv_cover.jpg
   projects:
   - title: 'UGV Patrol Planner: 2.5D 지형 기반 UGV 순찰 경로 계획 제어기'
     meta: '*개인 프로젝트 (1인 개발)* · 2026.10 – 2026.11'
