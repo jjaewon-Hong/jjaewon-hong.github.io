@@ -22,9 +22,9 @@
     caption: '영남대 경산캠퍼스 1 km × 1 km 순찰 장면<br>위: 2D 화면, 아래: 웹 데모 3D 화면 (WebAssembly)<br>빨강 건물, 초록 나무, 하늘색 물, 파란 선이 경로'
     links:
     - label: 코드
-      url: https://github.com/jjaewon-Hong/ugv_patrol_planner
+      url: https://github.com/jjaewon-Hong/UGV_Patrol_Planner
     - label: 웹 데모
-      url: https://jjaewon-hong.github.io/ugv_patrol_planner/
+      url: https://jjaewon-hong.github.io/UGV_Patrol_Planner/
     tags:
     - ROS 2 Jazzy
     - Python
