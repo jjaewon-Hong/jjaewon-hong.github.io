@@ -110,8 +110,6 @@ svg { display: block; }
 
 ::selection { background: c(accent); color: c(on-accent); }
 
-.muted { color: c(muted); }
-
 .container {
   max-width: $container;
   margin: 0 auto;
@@ -695,8 +693,6 @@ body:has(.project-dialog[open]) { overflow: hidden; }
 .dialog-body {
   padding: 8px 24px 24px;
 
-  .roadmap { margin: 16px 0 8px; }
-
   @include phone { padding: 4px 16px 16px; }
 }
 
@@ -704,7 +700,7 @@ body:has(.project-dialog[open]) { overflow: hidden; }
 .roadmap {
   list-style: none;
   padding: 0;
-  margin: 16px 0 0;
+  margin: 16px 0 8px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
